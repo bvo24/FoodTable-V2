@@ -5,14 +5,98 @@
 //  Created by Brian Vo on 5/29/24.
 //
 
+
+//var id : UUID
+//var name : String
+//var calories : Int
+//
+//var servingSize : Int
+//In our crafting menu we should see this type when creating/adding to recipe
+//var servingType : String
+//
+//var protein : Int
+//var stock : String
+
+
 import SwiftUI
 
 struct AddView: View {
+//    @StateObject var foodItem = FoodItem()
+    @ObservedObject var dayManager : DayManager
+    var meal : String
+    
+    @State private var name = ""
+    @State private var calories = ""
+    @State private var servingSize = ""
+    @State private var protein = ""
+    @State private var servingType = FoodItem.measurementUnits[0]
+    @State private var stockLevel = FoodItem.stockLevel[0]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationStack{
+            Form{
+                TextField("Food Name", text: $name)
+                TextField("Calories per serving", text: $calories )
+                HStack{
+                    TextField("Serving Size", text: $servingSize )
+                
+                    Picker("",selection: $servingType) {
+                                    ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                                        Text(servingType) // Display the enum case name
+                                    }
+                                }
+                }
+                
+                TextField("Protein per serving", text: $protein )
+                
+                
+                
+                Picker("Stock Level", selection: $stockLevel) {
+                                ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
+                                    Text(stockLevel) // Display the enum case name
+                                }
+                            }
+                
+                
+                
+                
+            }
+            .toolbar{
+                let foodItem = FoodItem(id: UUID(), name: name, calories: calories, servingSize: servingSize, servingType: servingType, protein: protein, stock: stockLevel)
+                
+                Button("Add Item"){
+                    
+                    switch meal {
+                    case "Breakfast":
+                        dayManager.selectedDay.breakfast.append(foodItem)
+                    case "Lunch":
+                        dayManager.selectedDay.lunch.append(foodItem)
+                    case "Dinner":
+                        dayManager.selectedDay.dinner.append(foodItem)
+                        
+                    default:
+                        dayManager.selectedDay.breakfast.append(foodItem)
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                }
+                .disabled(foodItem.hasValidItem == false)
+                
+            }
+            
+            
+        }
     }
 }
 
 #Preview {
-    AddView()
+   
+    
+    AddView(dayManager: DayManager.init(selectedDay: Day.example), meal: "Breakfast" )
 }

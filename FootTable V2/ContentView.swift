@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    
+    @StateObject private var dayManager = DayManager(selectedDay: Day(date: Date(), breakfast: [], lunch: [], dinner: []))
+    
+        var body: some View {
+            TabView {
+                // Other tabs...
+                BuffLogView(dayManager: dayManager)
+                    .tabItem { Label("Buff Log", systemImage: "shield") }
+                // Other tabs...
+            }
         }
-        .padding()
-    }
+        
+    
 }
 
 #Preview {
