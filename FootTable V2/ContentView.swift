@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var dayManager = DayManager(selectedDay: Day(date: Date(), breakfast: [], lunch: [], dinner: []))
+    @StateObject private var dayManager = DayManager()
     
         var body: some View {
             TabView {

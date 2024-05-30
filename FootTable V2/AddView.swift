@@ -21,82 +21,59 @@
 import SwiftUI
 
 struct AddView: View {
-//    @StateObject var foodItem = FoodItem()
-    @ObservedObject var dayManager : DayManager
-    var meal : String
-    
+    @ObservedObject var dayManager: DayManager
+    var meal: Meal
+
     @State private var name = ""
     @State private var calories = ""
     @State private var servingSize = ""
     @State private var protein = ""
     @State private var servingType = FoodItem.measurementUnits[0]
     @State private var stockLevel = FoodItem.stockLevel[0]
-    
+
     var body: some View {
-        
-        NavigationStack{
-            Form{
+        NavigationStack {
+            Form {
                 TextField("Food Name", text: $name)
-                TextField("Calories per serving", text: $calories )
-                HStack{
-                    TextField("Serving Size", text: $servingSize )
-                
-                    Picker("",selection: $servingType) {
-                                    ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
-                                        Text(servingType) // Display the enum case name
-                                    }
-                                }
-                }
-                
-                TextField("Protein per serving", text: $protein )
-                
-                
-                
-                Picker("Stock Level", selection: $stockLevel) {
-                                ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
-                                    Text(stockLevel) // Display the enum case name
-                                }
-                            }
-                
-                
-                
-                
-            }
-            .toolbar{
-                let foodItem = FoodItem(id: UUID(), name: name, calories: calories, servingSize: servingSize, servingType: servingType, protein: protein, stock: stockLevel)
-                
-                Button("Add Item"){
-                    
-                    switch meal {
-                    case "Breakfast":
-                        dayManager.selectedDay.breakfast.append(foodItem)
-                    case "Lunch":
-                        dayManager.selectedDay.lunch.append(foodItem)
-                    case "Dinner":
-                        dayManager.selectedDay.dinner.append(foodItem)
-                        
-                    default:
-                        dayManager.selectedDay.breakfast.append(foodItem)
-                        
-                        
-                        
-                        
-                        
+                TextField("Calories per serving", text: $calories)
+                HStack {
+                    TextField("Serving Size", text: $servingSize)
+                    Picker("", selection: $servingType) {
+                        ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                            Text(servingType)
+                        }
                     }
-                    
-                    
                 }
-                .disabled(foodItem.hasValidItem == false)
-                
+                TextField("Protein per serving", text: $protein)
+                Picker("Stock Level", selection: $stockLevel) {
+                    ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
+                        Text(stockLevel)
+                    }
+                }
             }
-            
-            
+            .toolbar {
+                let foodItem = FoodItem(id: UUID(), name: name, calories: calories, servingSize: servingSize, servingType: servingType, protein: protein, stock: stockLevel)
+                Button("Add Item") {
+                    addFoodItem(foodItem)
+                }
+                .disabled(!foodItem.hasValidItem)
+            }
         }
+    }
+
+    private func addFoodItem(_ foodItem: FoodItem) {
+        switch meal {
+        case .breakfast:
+            dayManager.selectedDay.breakfast.append(foodItem)
+        case .lunch:
+            dayManager.selectedDay.lunch.append(foodItem)
+        case .dinner:
+            dayManager.selectedDay.dinner.append(foodItem)
+        }
+        dayManager.updateSelectedDay()
     }
 }
 
 #Preview {
-   
-    
-    AddView(dayManager: DayManager.init(selectedDay: Day.example), meal: "Breakfast" )
+    AddView(dayManager: DayManager(), meal: .breakfast)
 }
