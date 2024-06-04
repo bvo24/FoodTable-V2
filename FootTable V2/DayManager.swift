@@ -70,7 +70,7 @@ class DayManager: ObservableObject {
 
     func updateSelectedDay() {
         if let index = days.firstIndex(where: { $0.id == selectedDay.id }) {
-            print("FOUND DAY")
+//            print("FOUND DAY")
             
             if let index = days.firstIndex(where: { $0.id == selectedDay.id }) {
                     days[index].breakfast = selectedDay.breakfast
@@ -79,7 +79,25 @@ class DayManager: ObservableObject {
                     saveDays()
                 }
         }
-        print("DIDN'T FIND DAY")
+//        print("DIDN'T FIND DAY")
     }
+    
+    func updateFoodItem(updatedFoodItem: FoodItem) {
+            // Check if the updated food item ID matches any existing food item in the selected day's breakfast
+            if let index = selectedDay.breakfast.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+                selectedDay.breakfast[index] = updatedFoodItem
+            }
+            // Check if the updated food item ID matches any existing food item in the selected day's lunch
+            else if let index = selectedDay.lunch.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+                selectedDay.lunch[index] = updatedFoodItem
+            }
+            // Check if the updated food item ID matches any existing food item in the selected day's dinner
+            else if let index = selectedDay.dinner.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+                selectedDay.dinner[index] = updatedFoodItem
+            }
+        }
+    
+    
+    
 }
 

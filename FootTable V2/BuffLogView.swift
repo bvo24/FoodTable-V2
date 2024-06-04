@@ -8,27 +8,36 @@ struct BuffLogView: View {
     
     @State private var refreshID = UUID()
 
-    // In your view
-    
-
-    // When data changes and you want to trigger a refresh
-   
-
     var body: some View {
         NavigationStack {
             List {
                 Section(header: Text("Breakfast")) {
                     ForEach(dayManager.selectedDay.breakfast, id: \.self) { food in
-                        HStack {
-                            Text(food.name)
-                            Spacer()
-                            Text("\(food.calories) cal")
+                        NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)  ) {
+                                            HStack {
+                                                Text(food.name)
+                                                Spacer()
+                                                Text("\(food.calories, specifier: "%.1f") cal")
+                                            }
+                                        }
+                        .onDisappear{
+                                refreshID = UUID()
                         }
+                        //add this to other times lunch / dinner
+                        
+//                        HStack {
+//                            Text(food.name)
+//                            Spacer()
+//                            Text("\(food.calories, specifier: "%.1f") cal")
+//                        }
                     }
                     .onDelete(perform: { indexSet in
                         dayManager.selectedDay.breakfast.remove(atOffsets: indexSet)
                         dayManager.updateSelectedDay()
+                        refreshID = UUID()
                     })
+                    .background(EmptyView().id(refreshID)) // Ensure view updates correctly
+                    
                     Button(action: {
                         mealTime = .breakfast
                         showAddView.toggle()
@@ -48,7 +57,10 @@ struct BuffLogView: View {
                     .onDelete(perform: { indexSet in
                         dayManager.selectedDay.lunch.remove(atOffsets: indexSet)
                         dayManager.updateSelectedDay()
+                        refreshID = UUID()
                     })
+                    .background(EmptyView().id(refreshID)) // Ensure view updates correctly
+                    
                     Button(action: {
                         mealTime = .lunch
                         showAddView.toggle()
@@ -68,7 +80,10 @@ struct BuffLogView: View {
                     .onDelete(perform: { indexSet in
                         dayManager.selectedDay.dinner.remove(atOffsets: indexSet)
                         dayManager.updateSelectedDay()
+                        refreshID = UUID()
                     })
+                    .background(EmptyView().id(refreshID)) // Ensure view updates correctly
+                    
                     Button(action: {
                         mealTime = .dinner
                         showAddView.toggle()
@@ -80,70 +95,56 @@ struct BuffLogView: View {
             .navigationTitle("Buff Log")
             .sheet(isPresented: $showAddView) {
                 AddView(dayManager: dayManager, meal: mealTime)
+                    .onDisappear{
+                        refreshID = UUID()
+                        
+                    }
             }
-            
-
-
             
             .toolbar {
-                ToolbarItem{
+                ToolbarItem {
                     Button("List") {
-                                    printDaysList()
-                                }
+                        printDaysList()
+                    }
                 }
                 
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                // Add a Date Picker in the toolbar
-                                DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
-                                    .datePickerStyle(.compact)
-                                    .onChange(of: selectedDate) { oldValue, newValue in
-                                                                print("Selected Date changed to: \(newValue)")
-                                                                changeDate(to: newValue)
-                                                                
-                                                            }
-                            }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
+                        .datePickerStyle(.compact)
+                        .onChange(of: selectedDate) { oldValue, newValue in
+                            print("Selected Date changed from: \(oldValue) to: \(newValue)")
+                            changeDate(to: newValue)
+                        }
+                        .labelsHidden()
+                }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                                Button("Add Random Breakfast Item", systemImage: "plus") {
-                                    // Generate a random index within the range of FoodItem.examples array
-                                    let randomIndex = Int.random(in: 0..<FoodItem.examples.count)
-                                    
-                                    // Get the random food item from FoodItem.examples
-                                    let randomFoodItem = FoodItem.examples[randomIndex]
-                                    
-                                    // Add the random food item to the breakfast list of the selected day
-                                    dayManager.selectedDay.breakfast.append(randomFoodItem)
-                                    
-                                    // Call the updateSelectedDay function to update the selected day
-                                    dayManager.updateSelectedDay()
-                                    
-                                    // Call the saveDays function to save the changes
-                                    refreshID = UUID()
-                                }
-                            }
-                
-                
-
-                            
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button("Add Random Breakfast Item") {
+//                        let randomIndex = Int.random(in: 0..<FoodItem.examples.count)
+//                        let randomFoodItem = FoodItem.examples[randomIndex]
+//                        dayManager.selectedDay.breakfast.append(randomFoodItem)
+//                        dayManager.updateSelectedDay()
+//                        refreshID = UUID() // Force view refresh
+//                    }
+//                }
             }
-            .id(refreshID) // Force view refresh based on refreshID
+            .id(refreshID)
         }
     }
+
     private func printDaysList() {
-            print("Days List:")
-            for day in dayManager.days {
-                print("Date: \(day.date), Breakfast: \(day.breakfast), Lunch: \(day.lunch), Dinner: \(day.dinner)")
-            }
+        print("Days List:")
+        for day in dayManager.days {
+            print("Date: \(day.date), Breakfast: \(day.breakfast), Lunch: \(day.lunch), Dinner: \(day.dinner)")
         }
+    }
     
     private func changeDate(to date: Date) {
-            dayManager.changeDate(to: date)
-            refreshID = UUID()
-        
-            print("Day Manager Selected Day ID: \(dayManager.selectedDay.id)")
-
-        }
-    
+        dayManager.changeDate(to: date)
+        refreshID = UUID() // Force view refresh
+        print("Changed date to: \(date)")
+        print("Day Manager Selected Day ID: \(dayManager.selectedDay.id)")
+    }
 }
 
 enum Meal {
