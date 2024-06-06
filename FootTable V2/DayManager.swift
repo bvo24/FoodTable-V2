@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 
+
 class DayManager: ObservableObject {
     @Published var days: [Day]
     @Published var selectedDay: Day
@@ -19,6 +20,7 @@ class DayManager: ObservableObject {
         self.days = []
         self.selectedDay = Day(date: Date(), breakfast: [], lunch: [], dinner: [])
         loadDays()
+        removeOldDays()
         updateSelectedDayIfNeeded()
     }
 
@@ -40,6 +42,18 @@ class DayManager: ObservableObject {
         }
     }
 
+    private func removeOldDays() {
+        let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+        days.removeAll { day in
+            if day.date < sevenDaysAgo {
+                print("Removing day: \(day.date)")
+                return true
+            }
+            return false
+        }
+        saveDays()
+    }
+
     private func updateSelectedDayIfNeeded() {
         let today = Date()
         if let existingDay = days.first(where: { Calendar.current.isDate($0.date, inSameDayAs: today) }) {
@@ -51,7 +65,16 @@ class DayManager: ObservableObject {
     }
 
     func addDay(_ day: Day) {
-        days.append(day)
+        // Check if a day with the same date already exists
+        if let existingDayIndex = days.firstIndex(where: { Calendar.current.isDate($0.date, inSameDayAs: day.date) }) {
+            // Day with the same date already exists, update it
+            days[existingDayIndex] = day
+        } else {
+            // Add the new day if it doesn't exist
+            days.append(day)
+        }
+        // Remove old days if necessary
+        removeOldDays()
         saveDays()
         selectedDay = day
     }
@@ -59,24 +82,31 @@ class DayManager: ObservableObject {
     func changeDate(to date: Date) {
         if let existingDay = days.first(where: { Calendar.current.isDate($0.date, inSameDayAs: date) }) {
             selectedDay = existingDay
-            print("date existed")
-        } else {
-            print("new date")
+            print("Date existed")
+        } else if Calendar.current.isDate(date, inSameDayAs: Date()) || date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
+            print("New date within range")
             let newDay = Day(date: date, breakfast: [], lunch: [], dinner: [])
-            days.append(newDay)
+            addDay(newDay)
             selectedDay = newDay
+        } else {
+            print("Date beyond range, not allowed")
         }
     }
 
     func updateSelectedDay() {
         if let index = days.firstIndex(where: { $0.id == selectedDay.id }) {
-            days[index] = selectedDay
+            days[index].breakfast = selectedDay.breakfast
+            days[index].lunch = selectedDay.lunch
+            days[index].dinner = selectedDay.dinner
+            days[index].proteinIntake = selectedDay.proteinIntake
+            days[index].totalProtein = selectedDay.totalProtein
+            days[index].calorieIntake = selectedDay.calorieIntake
+            days[index].totalCalories = selectedDay.totalCalories
             saveDays()
         }
     }
-    
+
     func updateFoodItem(updatedFoodItem: FoodItem) {
-        // Check if the updated food item ID matches any existing food item in the selected day's meals
         if let index = selectedDay.breakfast.firstIndex(where: { $0.id == updatedFoodItem.id }) {
             selectedDay.breakfast[index] = updatedFoodItem
         } else if let index = selectedDay.lunch.firstIndex(where: { $0.id == updatedFoodItem.id }) {
@@ -84,13 +114,31 @@ class DayManager: ObservableObject {
         } else if let index = selectedDay.dinner.firstIndex(where: { $0.id == updatedFoodItem.id }) {
             selectedDay.dinner[index] = updatedFoodItem
         }
-        recalculateTotalProtein() // Recalculate total protein after updating food item
+        updateSelectedDay()
     }
-    
-    private func recalculateTotalProtein() {
-        let totalProtein = selectedDay.breakfast.reduce(0) { $0 + $1.protein } +
-                           selectedDay.lunch.reduce(0) { $0 + $1.protein } +
-                           selectedDay.dinner.reduce(0) { $0 + $1.protein }
-        selectedDay.totalProtein = totalProtein
+
+    // Test function to simulate adding days and removing old ones
+    func testDayRemoval() {
+        let today = Date()
+
+        // Add 8 days to dayManager, with one day being beyond 7 days in the past
+        for i in 0..<8 {
+            if let date = Calendar.current.date(byAdding: .day, value: -i, to: today) {
+                let day = Day(date: date, breakfast: [], lunch: [], dinner: [])
+                addDay(day)
+            }
+        }
+
+        print("Days in manager after adding 8 days:")
+        for day in days {
+            print(day.date)
+        }
+    }
+
+    func listAllDays() {
+        print("Current days in manager:")
+        for day in days {
+            print(day.date)
+        }
     }
 }
