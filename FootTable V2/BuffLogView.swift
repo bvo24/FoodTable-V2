@@ -5,7 +5,8 @@ struct BuffLogView: View {
     @State private var showAddView = false
     @State private var mealTime = Meal.breakfast
     @State private var selectedDate = Date()
-    
+    @State private var showProteinView = false
+    @State private var proteinCount : Int = UserDefaults.standard.integer(forKey: "proteinCount")
     @State private var refreshID = UUID()
 
     var body: some View {
@@ -48,11 +49,23 @@ struct BuffLogView: View {
 
                 Section(header: Text("Lunch")) {
                     ForEach(dayManager.selectedDay.lunch, id: \.self) { food in
-                        HStack {
-                            Text(food.name)
-                            Spacer()
-                            Text("\(food.calories) cal")
+                        NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)  ) {
+                                            HStack {
+                                                Text(food.name)
+                                                Spacer()
+                                                Text("\(food.calories, specifier: "%.1f") cal")
+                                            }
+                                        }
+                        .onDisappear{
+                                refreshID = UUID()
                         }
+                        //add this to other times lunch / dinner
+                        
+//                        HStack {
+//                            Text(food.name)
+//                            Spacer()
+//                            Text("\(food.calories, specifier: "%.1f") cal")
+//                        }
                     }
                     .onDelete(perform: { indexSet in
                         dayManager.selectedDay.lunch.remove(atOffsets: indexSet)
@@ -71,11 +84,23 @@ struct BuffLogView: View {
 
                 Section(header: Text("Dinner")) {
                     ForEach(dayManager.selectedDay.dinner, id: \.self) { food in
-                        HStack {
-                            Text(food.name)
-                            Spacer()
-                            Text("\(food.calories) cal")
+                        NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)  ) {
+                                            HStack {
+                                                Text(food.name)
+                                                Spacer()
+                                                Text("\(food.calories, specifier: "%.1f") cal")
+                                            }
+                                        }
+                        .onDisappear{
+                                refreshID = UUID()
                         }
+                        //add this to other times lunch / dinner
+                        
+//                        HStack {
+//                            Text(food.name)
+//                            Spacer()
+//                            Text("\(food.calories, specifier: "%.1f") cal")
+//                        }
                     }
                     .onDelete(perform: { indexSet in
                         dayManager.selectedDay.dinner.remove(atOffsets: indexSet)
@@ -91,6 +116,13 @@ struct BuffLogView: View {
                         Label("Add Dinner Item", systemImage: "plus")
                     }
                 }
+                
+                Text( "\(dayManager.selectedDay.totalCalories, specifier: "%.0f" ) Calories out of \(dayManager.selectedDay.calorieIntake, specifier: "%.0f" )")
+                
+                Text("\(dayManager.selectedDay.totalProtein, specifier: "%.1f") out of \(dayManager.selectedDay.proteinIntake, specifier: "%.1f")")
+                
+                
+                
             }
             .navigationTitle("Buff Log")
             .sheet(isPresented: $showAddView) {
@@ -107,6 +139,23 @@ struct BuffLogView: View {
                         printDaysList()
                     }
                 }
+                ToolbarItem {
+                    Button("Update") {
+                        showProteinView.toggle()
+                    }
+                    .sheet(isPresented: $showProteinView ){
+                        proteinView(dayManager: dayManager)
+                            .onDisappear {
+                                proteinCount = UserDefaults.standard.integer(forKey: "proteinCount")
+                                
+                                refreshID = UUID()
+                            }
+
+                            
+                    }
+                    
+                }
+                
                 
                 ToolbarItem(placement: .navigationBarLeading) {
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: .date)
@@ -127,12 +176,14 @@ struct BuffLogView: View {
 //                        refreshID = UUID() // Force view refresh
 //                    }
 //                }
+                
             }
             .id(refreshID)
         }
     }
 
     private func printDaysList() {
+        print( "Protein count \(dayManager.selectedDay.proteinIntake)" )
         print("Days List:")
         for day in dayManager.days {
             print("Date: \(day.date), Breakfast: \(day.breakfast), Lunch: \(day.lunch), Dinner: \(day.dinner)")

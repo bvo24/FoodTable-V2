@@ -60,35 +60,42 @@ struct AddView: View {
     var body: some View {
         NavigationStack {
             Form {
-                TextField("Food Name", text: $name)
-                
-                HStack {
-                    TextField("Cals per serving", text: $caloriesPerServing)
-                    TextField("Serving Size", text: $servingSize)
-                    TextField("Protein per serving", text: $proteinPerServing)
-                    Picker("Measurement Units", selection: $servingType) {
-                        ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
-                            Text(servingType)
-                        }
-                    }
-                    .labelsHidden()
+                Section("Name"){
+                    TextField("Food Name", text: $name)
                 }
                 
-                HStack{
-                    TextField("Amount eaten", text: $amountEaten)
-                    Picker("Measurement Units", selection: $eatenServingType) {
-                        ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
-                            Text(servingType)
+                
+                Section("Per serving"){
+                    HStack {
+                        TextField("Cals", text: $caloriesPerServing)
+                        TextField("Protein", text: $proteinPerServing)
+                        TextField("Amount", text: $servingSize)
+                        Picker("Measurement Units", selection: $servingType) {
+                            ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                                Text(servingType)
+                            }
                         }
+                        .labelsHidden()
                     }
-                    .labelsHidden()
+                }
+                
+                Section("Consumption details"){
+                    HStack{
+                        TextField("Amount eaten", text: $amountEaten)
+                        Picker("Measurement Units", selection: $eatenServingType) {
+                            ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                                Text(servingType)
+                            }
+                        }
+                        .labelsHidden()
+                        
+                    }
                     
-                }
-                
-                
-                Picker("Stock Level", selection: $stockLevel) {
-                    ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
-                        Text(stockLevel)
+                    
+                    Picker("Stock Level", selection: $stockLevel) {
+                        ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
+                            Text(stockLevel)
+                        }
                     }
                 }
                 

@@ -11,6 +11,7 @@
 		9B5705DA2C07A8FE0056EBE8 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705D92C07A8FE0056EBE8 /* AddView.swift */; };
 		9B5705DE2C0911050056EBE8 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705DD2C0911050056EBE8 /* ContentView-ViewModel.swift */; };
 		9B5705E02C0A75800056EBE8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705DF2C0A75800056EBE8 /* EditView.swift */; };
+		9B5705E22C0FE7FE0056EBE8 /* proteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705E12C0FE7FE0056EBE8 /* proteinView.swift */; };
 		9B68B0212C06B64B00C84892 /* FootTable_V2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */; };
 		9B68B0232C06B64B00C84892 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68B0222C06B64B00C84892 /* ContentView.swift */; };
 		9B68B0252C06B64C00C84892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B68B0242C06B64C00C84892 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		9B5705D92C07A8FE0056EBE8 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		9B5705DD2C0911050056EBE8 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
 		9B5705DF2C0A75800056EBE8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		9B5705E12C0FE7FE0056EBE8 /* proteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = proteinView.swift; sourceTree = "<group>"; };
 		9B68B01D2C06B64B00C84892 /* FootTable V2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FootTable V2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootTable_V2App.swift; sourceTree = "<group>"; };
 		9B68B0222C06B64B00C84892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				9B68B0342C06B70F00C84892 /* FoodItem.swift */,
 				9B5705D52C06E2E60056EBE8 /* DayManager.swift */,
 				9B68B0302C06B6B300C84892 /* BuffLogView.swift */,
+				9B5705E12C0FE7FE0056EBE8 /* proteinView.swift */,
 				9B5705D92C07A8FE0056EBE8 /* AddView.swift */,
 				9B68B0322C06B6D500C84892 /* FoodView.swift */,
 				9B68B02E2C06B66500C84892 /* Day.swift */,
@@ -164,6 +167,7 @@
 				9B5705D62C06E2E60056EBE8 /* DayManager.swift in Sources */,
 				9B68B0312C06B6B300C84892 /* BuffLogView.swift in Sources */,
 				9B68B0332C06B6D500C84892 /* FoodView.swift in Sources */,
+				9B5705E22C0FE7FE0056EBE8 /* proteinView.swift in Sources */,
 				9B68B0232C06B64B00C84892 /* ContentView.swift in Sources */,
 				9B5705DE2C0911050056EBE8 /* ContentView-ViewModel.swift in Sources */,
 				9B5705DA2C07A8FE0056EBE8 /* AddView.swift in Sources */,

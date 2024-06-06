@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject private var dayManager = DayManager()
-    
+    @State private var totalProtein = UserDefaults.standard.double(forKey: "totalProtein")
         var body: some View {
             TabView {
                 // Other tabs...

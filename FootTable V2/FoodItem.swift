@@ -30,7 +30,7 @@ struct FoodItem : Identifiable, Codable, Hashable{
     var protein : Double
     var stock : String
     
-    static let examples: [FoodItem] = [
+    static let example: [FoodItem] = [
         FoodItem(id: UUID(), name: "Apple", calories: 95, caloriesPerServing: "30", servingSize: "1", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "10", protein: 4.0, stock: "low"),
         FoodItem(id: UUID(), name: "Banana", calories: 105, caloriesPerServing: "5", servingSize: "1", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "10", protein: 1.0, stock: "medium"),
         FoodItem(id: UUID(), name: "Chicken Breast", calories: 165, caloriesPerServing: "2", servingSize: "100", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "32", protein: 31.0, stock: "high")

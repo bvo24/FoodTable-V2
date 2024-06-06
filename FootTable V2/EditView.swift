@@ -66,44 +66,41 @@ struct EditView: View {
                             
                         }
                         
-                        Section(header: Text("Calories per serving")){
+                        Section("Per serving calories/protein/amount "){
                             HStack {
                                 HStack{
-                                    TextField("Calories per Serving", text: $caloriesPerServing)
-                                    TextField("Serving Size", text: $servingSize)
+                                    TextField("Cals", text: $caloriesPerServing)
+                                    
+                                    TextField("Protein", text: $proteinPerServing)
+                                    
+                                    TextField("Amount", text: $servingSize)
+                                        
+                                    
+                                    
                                 }
+                                
                                 
                                 Picker("Measurement Units", selection: $servingType) {
                                     ForEach(FoodItem.measurementUnits, id: \.self) { unit in
                                         Text(unit)
                                     }
                                 }
+                                .labelsHidden()
                             }
                         }
                         
-                        
-                        HStack{
-                            
-                            VStack{
-                                Section(header: Text("Amount Eaten")){
-                                    TextField("Amount Eaten", text: $amountEaten)
-                                    
-                                }
-                                Section(header: Text("Protein per Serving")){
-                                    TextField("Protein per Serving", text: $proteinPerServing)
-                                    
-                                }
+                        Section("Consumption Details"){
+                            HStack{
+                                
+                                TextField("Amount Eaten", text: $amountEaten)
+                                
                                 Picker("Measurement Units", selection: $eatenServingType) {
                                     ForEach(FoodItem.measurementUnits, id: \.self) { unit in
                                         Text(unit)
                                     }
                                 }
                                 
-                                
                             }
-                            
-                            
-                            
                         }
                         
                         
@@ -153,15 +150,27 @@ struct EditView: View {
             stock: stockLevel
         )
         
+       
+        
         // Find the index of the foodItem in the appropriate meal category
         if let index = dayManager.selectedDay.breakfast.firstIndex(where: { $0.id == foodItem.id }) {
+//            print("Before updating food item:")
+//            print("Protein Count: \(dayManager.selectedDay.proteinCount)")
+//            print("Total Protein: \(dayManager.selectedDay.totalProtein)")
+            
             dayManager.selectedDay.breakfast[index] = updatedFoodItem
+            
+//            print("After updating food item:")
+//            print("Protein Count: \(dayManager.selectedDay.proteinCount)")
+//            print("Total Protein: \(dayManager.selectedDay.totalProtein)")
         } else if let index = dayManager.selectedDay.lunch.firstIndex(where: { $0.id == foodItem.id }) {
             dayManager.selectedDay.lunch[index] = updatedFoodItem
         } else if let index = dayManager.selectedDay.dinner.firstIndex(where: { $0.id == foodItem.id }) {
             dayManager.selectedDay.dinner[index] = updatedFoodItem
         }
         
+        
+       
         
         // Update the selected day in the day manager
         dayManager.updateSelectedDay()

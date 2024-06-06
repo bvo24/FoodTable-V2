@@ -70,34 +70,27 @@ class DayManager: ObservableObject {
 
     func updateSelectedDay() {
         if let index = days.firstIndex(where: { $0.id == selectedDay.id }) {
-//            print("FOUND DAY")
-            
-            if let index = days.firstIndex(where: { $0.id == selectedDay.id }) {
-                    days[index].breakfast = selectedDay.breakfast
-                    days[index].lunch = selectedDay.lunch
-                    days[index].dinner = selectedDay.dinner
-                    saveDays()
-                }
+            days[index] = selectedDay
+            saveDays()
         }
-//        print("DIDN'T FIND DAY")
     }
     
     func updateFoodItem(updatedFoodItem: FoodItem) {
-            // Check if the updated food item ID matches any existing food item in the selected day's breakfast
-            if let index = selectedDay.breakfast.firstIndex(where: { $0.id == updatedFoodItem.id }) {
-                selectedDay.breakfast[index] = updatedFoodItem
-            }
-            // Check if the updated food item ID matches any existing food item in the selected day's lunch
-            else if let index = selectedDay.lunch.firstIndex(where: { $0.id == updatedFoodItem.id }) {
-                selectedDay.lunch[index] = updatedFoodItem
-            }
-            // Check if the updated food item ID matches any existing food item in the selected day's dinner
-            else if let index = selectedDay.dinner.firstIndex(where: { $0.id == updatedFoodItem.id }) {
-                selectedDay.dinner[index] = updatedFoodItem
-            }
+        // Check if the updated food item ID matches any existing food item in the selected day's meals
+        if let index = selectedDay.breakfast.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+            selectedDay.breakfast[index] = updatedFoodItem
+        } else if let index = selectedDay.lunch.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+            selectedDay.lunch[index] = updatedFoodItem
+        } else if let index = selectedDay.dinner.firstIndex(where: { $0.id == updatedFoodItem.id }) {
+            selectedDay.dinner[index] = updatedFoodItem
         }
+        recalculateTotalProtein() // Recalculate total protein after updating food item
+    }
     
-    
-    
+    private func recalculateTotalProtein() {
+        let totalProtein = selectedDay.breakfast.reduce(0) { $0 + $1.protein } +
+                           selectedDay.lunch.reduce(0) { $0 + $1.protein } +
+                           selectedDay.dinner.reduce(0) { $0 + $1.protein }
+        selectedDay.totalProtein = totalProtein
+    }
 }
-
