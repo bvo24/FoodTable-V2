@@ -83,18 +83,18 @@ class Day: Identifiable, ObservableObject, Codable, Equatable {
         let date = Date() // Current date and time
         
         let breakfastItems = [
-            FoodItem(id: UUID(), name: "Eggs", calories: 150.0, caloriesPerServing: "40", servingSize: "2", servingType: "piece(s)", eatenServingType: "piece(s)", amountEaten: "0", proteinPerServing: "15", protein: 12.0, stock: "high"),
-            FoodItem(id: UUID(), name: "Toast", calories: 100.0, caloriesPerServing: "30", servingSize: "1", servingType: "piece(s)", eatenServingType: "piece(s)", amountEaten: "0", proteinPerServing: "30", protein: 3.0, stock: "medium")
+            FoodItem(id: UUID(), name: "Eggs", caloriesPerServing: "40", servingSize: "2", servingType: "piece(s)", eatenServingType: "piece(s)", amountEaten: "0", proteinPerServing: "15",  stock: "high"),
+            FoodItem(id: UUID(), name: "Toast", caloriesPerServing: "30", servingSize: "1", servingType: "piece(s)", eatenServingType: "piece(s)", amountEaten: "0", proteinPerServing: "30", stock: "medium")
         ]
         
         let lunchItems = [
-            FoodItem(id: UUID(), name: "Chicken Salad", calories: 300.0, caloriesPerServing: "20", servingSize: "1", servingType: "g", eatenServingType: "g", amountEaten: "0", proteinPerServing: "20", protein: 20.0, stock: "medium"),
-            FoodItem(id: UUID(), name: "Fruit Salad", calories: 120.0, caloriesPerServing: "15", servingSize: "1", servingType: "cup", eatenServingType: "cup", amountEaten: "0", proteinPerServing: "2", protein: 2.0, stock: "low")
+            FoodItem(id: UUID(), name: "Chicken Salad", caloriesPerServing: "20", servingSize: "1", servingType: "g", eatenServingType: "g", amountEaten: "0", proteinPerServing: "20",  stock: "medium"),
+            FoodItem(id: UUID(), name: "Fruit Salad", caloriesPerServing: "15", servingSize: "1", servingType: "cup", eatenServingType: "cup", amountEaten: "0", proteinPerServing: "2", stock: "low")
         ]
         
         let dinnerItems = [
-            FoodItem(id: UUID(), name: "Grilled Salmon", calories: 250.0, caloriesPerServing: "50", servingSize: "1", servingType: "fillet", eatenServingType: "fillet", amountEaten: "0", proteinPerServing: "25", protein: 25.0, stock: "high"),
-            FoodItem(id: UUID(), name: "Steamed Vegetables", calories: 80.0, caloriesPerServing: "20", servingSize: "1", servingType: "cup", eatenServingType: "cup", amountEaten: "0", proteinPerServing: "3", protein: 3.0, stock: "medium")
+            FoodItem(id: UUID(), name: "Grilled Salmon", caloriesPerServing: "50", servingSize: "1", servingType: "fillet", eatenServingType: "fillet", amountEaten: "0", proteinPerServing: "25",  stock: "high"),
+            FoodItem(id: UUID(), name: "Steamed Vegetables", caloriesPerServing: "20", servingSize: "1", servingType: "cup", eatenServingType: "cup", amountEaten: "0", proteinPerServing: "3", stock: "medium")
         ]
         
         return Day(date: date, breakfast: breakfastItems, lunch: lunchItems, dinner: dinnerItems)
@@ -114,12 +114,12 @@ class Day: Identifiable, ObservableObject, Codable, Equatable {
     
     private func calculateProteinIntake() -> Double {
         // In this example, assuming proteinIntake is directly derived from UserDefaults
-        return Double(proteinIntakeDefault)
+        return Double(proteinIntake)
     }
     
     private func calculateCalorieIntake() -> Double {
         // In this example, assuming calorieIntake is directly derived from UserDefaults
-        return Double(calorieIntakeDefault)
+        return Double(calorieIntake)
     }
     
     private func updateTotals() {

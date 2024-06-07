@@ -37,23 +37,49 @@ struct AddView: View {
     @State private var stockLevel = FoodItem.stockLevel[2]
     
     
-    var calories: Double {
-            guard let caloriesPerServing = Double(caloriesPerServing),
-                  let servingSize = Double(servingSize),
-                  let amountEaten = Double(amountEaten) else {
+    // Conversion factors for different units to grams
+        let conversionFactors: [String: Double] = [
+            "g": 1.0,      // Grams
+            "kg": 1000.0,  // Kilograms to grams
+            "oz": 28.35,   // Ounces to grams
+            "lbs": 453.59, // Pounds to grams
+            "ml": 1.0,     // Milliliters (assuming water density)
+            "l": 1000.0,   // Liters to milliliters
+            "cups": 236.59,// Cups to milliliters (standard conversion)
+            // Add more conversions as needed
+        ]
+
+        // Calculate total calories in grams
+    var servingSizeInGrams: Double {
+            guard let servingSizeValue = Double(servingSize) else {
                 return 0
             }
-            return (caloriesPerServing / servingSize) * amountEaten
+            return conversionFactors[servingType]! * servingSizeValue
         }
-    
-    var protein: Double {
-        guard let proteinPerServing = Double(proteinPerServing),
-              let servingSize = Double(servingSize),
-              let amountEaten = Double(amountEaten) else {
-            return 0
+        
+        var amountEatenInGrams: Double {
+            guard let amountEatenValue = Double(amountEaten) else {
+                return 0
+            }
+            return conversionFactors[eatenServingType]! * amountEatenValue
         }
-        return (proteinPerServing / servingSize) * amountEaten
-    }
+        
+        var calories: Double {
+            guard let caloriesPerServingValue = Double(caloriesPerServing) else {
+                return 0
+            }
+            return (caloriesPerServingValue / servingSizeInGrams) * amountEatenInGrams
+        }
+        
+        var protein: Double {
+            guard let proteinPerServingValue = Double(proteinPerServing) else {
+                return 0
+            }
+            return (proteinPerServingValue / servingSizeInGrams) * amountEatenInGrams
+        }
+
+
+
 
     
 
@@ -115,7 +141,7 @@ struct AddView: View {
                     }
                     
                     ToolbarItem(placement: .confirmationAction) {
-                        let foodItem = FoodItem(id: UUID(), name: name, calories: calories, caloriesPerServing: caloriesPerServing , servingSize: servingSize, servingType: servingType, eatenServingType: eatenServingType ,amountEaten: amountEaten , proteinPerServing: proteinPerServing, protein: protein, stock: stockLevel)
+                        let foodItem = FoodItem(id: UUID(), name: name, caloriesPerServing: caloriesPerServing , servingSize: servingSize, servingType: servingType, eatenServingType: eatenServingType ,amountEaten: amountEaten , proteinPerServing: proteinPerServing, stock: stockLevel)
                         Button("Add Item") {
                             addFoodItem(foodItem)
                             dismiss()

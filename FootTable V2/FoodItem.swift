@@ -7,63 +7,108 @@
 
 import Foundation
 
-struct FoodItem : Identifiable, Codable, Hashable{
-    
+struct FoodItem : Identifiable, Codable, Hashable {
     static let measurementUnits = [
-            "g", "kg", "oz", "lbs", "ml", "l", "cups", "tsp", "tbsp", "fl oz", "piece(s)"
-        ]
+        "g", "kg", "oz", "lbs", "ml", "l", "cups", "tsp", "tbsp", "fl oz", "piece(s)"
+    ]
     
     static let stockLevel = [ "Low", "Medium", "High"]
     
-    //Not sure if UUID() is ideal?... What if I update this item would it get affected?..
     var id : UUID
     var name : String
-    var calories : Double
     var caloriesPerServing : String
-    
     var servingSize : String
-    //In our crafting menu we should see this type when creating/adding to recipe
     var servingType : String
     var eatenServingType : String
     var amountEaten : String
     var proteinPerServing : String
-    var protein : Double
     var stock : String
     
-    static let example: [FoodItem] = [
-        FoodItem(id: UUID(), name: "Apple", calories: 95, caloriesPerServing: "30", servingSize: "1", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "10", protein: 4.0, stock: "low"),
-        FoodItem(id: UUID(), name: "Banana", calories: 105, caloriesPerServing: "5", servingSize: "1", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "10", protein: 1.0, stock: "medium"),
-        FoodItem(id: UUID(), name: "Chicken Breast", calories: 165, caloriesPerServing: "2", servingSize: "100", servingType: "grams", eatenServingType: "grams", amountEaten: "0", proteinPerServing: "32", protein: 31.0, stock: "high")
-       ]
-    
-    var hasValidItem : Bool{
-        
+    var hasValidItem : Bool {
         // Check if empty field
-            if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                return false // Name is required and cannot be empty
-            }
-            
-            // Chekc if number is inputted
-            guard let caloriesValue = Double(caloriesPerServing.trimmingCharacters(in: .whitespacesAndNewlines)),
-                  let servingSizeValue = Double(servingSize.trimmingCharacters(in: .whitespacesAndNewlines)),
-                  let proteinValue = Double(proteinPerServing.trimmingCharacters(in: .whitespacesAndNewlines)) else {
-                return false // Invalid numeric input
-            }
-            
-            // Make sure it's not negative
-            if caloriesValue <= 0 || servingSizeValue <= 0 || proteinValue <= 0 {
-                return false
-            }
-            
-            return true
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return false // Name is required and cannot be empty
+        }
         
+        // Check if numeric inputs are valid
+        guard let caloriesValue = Double(caloriesPerServing.trimmingCharacters(in: .whitespacesAndNewlines)),
+              let servingSizeValue = Double(servingSize.trimmingCharacters(in: .whitespacesAndNewlines)),
+              let proteinValue = Double(proteinPerServing.trimmingCharacters(in: .whitespacesAndNewlines)) else {
+            return false // Invalid numeric input
+        }
         
+        // Make sure numeric inputs are not negative
+        if caloriesValue <= 0 || servingSizeValue <= 0 || proteinValue <= 0 {
+            return false
+        }
         
-        
+        return true
     }
     
-    
-    
-    
+    var calories: Double {
+        guard let servingSizeDouble = Double(servingSize),
+              let amountEatenDouble = Double(amountEaten),
+              servingSizeDouble != 0 else {
+            return 0
+        }
+        
+        let servingInGrams = convertToGrams(from: servingSizeDouble, type: servingType)
+        let amountEatenInGrams = convertToGrams(from: amountEatenDouble, type: eatenServingType)
+        
+        return (caloriesPerServing.doubleValue / servingInGrams) * amountEatenInGrams
+    }
+
+    var protein: Double {
+        guard let servingSizeDouble = Double(servingSize),
+              let amountEatenDouble = Double(amountEaten),
+              servingSizeDouble != 0 else {
+            return 0
+        }
+        
+        let servingInGrams = convertToGrams(from: servingSizeDouble, type: servingType)
+        let amountEatenInGrams = convertToGrams(from: amountEatenDouble, type: eatenServingType)
+        
+        return (proteinPerServing.doubleValue / servingInGrams) * amountEatenInGrams
+    }
+
+    func convertToGrams(from value: Double, type: String) -> Double {
+        var grams: Double = 0.0
+
+        switch type.lowercased() {
+        case "g", "grams":
+            grams = value
+        case "kg", "kilograms":
+            grams = value * 1000
+        case "oz", "ounces":
+            grams = value * 28.35
+        case "lbs", "pounds":
+            grams = value * 453.592
+        case "ml", "milliliters":
+            grams = value * 1
+        case "l", "liters":
+            grams = value * 1000
+        case "cups":
+            grams = value * 236.588
+        case "tsp", "teaspoons":
+            grams = value * 4.929
+        case "tbsp", "tablespoons":
+            grams = value * 14.787
+        case "fl oz", "fluid ounces":
+            grams = value * 29.5735
+        case "piece(s)":
+            grams = value // Modify this based on specific item
+        default:
+            break
+        }
+
+        return grams
+    }
+
+
 }
 
+extension String {
+    var doubleValue: Double {
+        return Double(self) ?? 0.0
+    }
+}

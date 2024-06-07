@@ -68,6 +68,7 @@ class DayManager: ObservableObject {
         // Check if a day with the same date already exists
         if let existingDayIndex = days.firstIndex(where: { Calendar.current.isDate($0.date, inSameDayAs: day.date) }) {
             // Day with the same date already exists, update it
+            print("Updating day")
             days[existingDayIndex] = day
         } else {
             // Add the new day if it doesn't exist
@@ -82,9 +83,9 @@ class DayManager: ObservableObject {
     func changeDate(to date: Date) {
         if let existingDay = days.first(where: { Calendar.current.isDate($0.date, inSameDayAs: date) }) {
             selectedDay = existingDay
-            print("Date existed")
+//            print("Date existed")
         } else if Calendar.current.isDate(date, inSameDayAs: Date()) || date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
-            print("New date within range")
+//            print("New date within range")
             let newDay = Day(date: date, breakfast: [], lunch: [], dinner: [])
             addDay(newDay)
             selectedDay = newDay

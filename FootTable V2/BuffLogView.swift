@@ -6,7 +6,7 @@ struct BuffLogView: View {
     @State private var mealTime = Meal.breakfast
     @State private var selectedDate = Date()
     @State private var showProteinView = false
-    @State private var proteinCount: Int = UserDefaults.standard.integer(forKey: "proteinCount")
+//    @State private var proteinCount: Int = UserDefaults.standard.integer(forKey: "proteinCount")
     @State private var refreshID = UUID()
 
     var body: some View {
@@ -120,19 +120,22 @@ struct BuffLogView: View {
                     .sheet(isPresented: $showProteinView) {
                         proteinView(dayManager: dayManager)
                             .onDisappear {
-                                proteinCount = UserDefaults.standard.integer(forKey: "proteinCount")
+//                                proteinCount = UserDefaults.standard.integer(forKey: "proteinCount")
                                 refreshID = UUID()
                             }
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    DatePicker("Select Date", selection: $selectedDate, in: dateRange, displayedComponents: .date)
-                        .datePickerStyle(.compact)
-                        .onChange(of: selectedDate) { oldValue, newValue in
-                            print("Selected Date changed from: \(oldValue) to: \(newValue)")
-                            changeDate(to: newValue)
-                        }
-                        .labelsHidden()
+                    let today = Calendar.current.startOfDay(for: Date())
+//                    let sixDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today)!
+                    
+                    DatePicker("Select Date", selection: $selectedDate, in: Calendar.current.date(byAdding: .day, value: -6, to: Date())!...Date.distantFuture, displayedComponents: .date)
+                                            .datePickerStyle(.compact)
+                                            .onChange(of: selectedDate) { oldValue, newValue in
+                                                print("Selected Date changed from: \(oldValue) to: \(newValue)")
+                                                changeDate(to: newValue)
+                                            }
+                                            .labelsHidden()
                 }
             }
             .id(refreshID)
@@ -142,6 +145,7 @@ struct BuffLogView: View {
     private var dateRange: ClosedRange<Date> {
         let today = Calendar.current.startOfDay(for: Date())
         let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today)!
+//        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
         return sevenDaysAgo...today
     }
 
@@ -149,7 +153,8 @@ struct BuffLogView: View {
         print("Protein count \(dayManager.selectedDay.proteinIntake)")
         print("Days List:")
         for day in dayManager.days {
-            print("Date: \(day.date), Breakfast: \(day.breakfast), Lunch: \(day.lunch), Dinner: \(day.dinner)")
+//            print("Date: \(day.date), Breakfast: \(day.breakfast), Lunch: \(day.lunch), Dinner: \(day.dinner)")
+            print("Date: \(day.date) - Calorie Intake \(day.calorieIntake)")
         }
     }
 
