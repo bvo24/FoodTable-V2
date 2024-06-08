@@ -126,7 +126,7 @@ struct BuffLogView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    let today = Calendar.current.startOfDay(for: Date())
+//                    let today = Calendar.current.startOfDay(for: Date())
 //                    let sixDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today)!
                     
                     DatePicker("Select Date", selection: $selectedDate, in: Calendar.current.date(byAdding: .day, value: -6, to: Date())!...Date.distantFuture, displayedComponents: .date)
