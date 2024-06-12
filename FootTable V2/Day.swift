@@ -30,11 +30,11 @@ class Day: Identifiable, ObservableObject, Codable, Equatable {
     @Published var totalCalories: Double = 0.0
     @Published var calorieIntake: Double = 0.0
     
-    private var proteinIntakeDefault: Int {
-        UserDefaults.standard.integer(forKey: "proteinIntake")
+    private var proteinIntakeDefault: Double {
+        UserDefaults.standard.double(forKey: "proteinIntake")
     }
-    private var calorieIntakeDefault: Int {
-        UserDefaults.standard.integer(forKey: "calorieIntake")
+    private var calorieIntakeDefault: Double {
+        UserDefaults.standard.double(forKey: "calorieIntake")
     }
     
     init(date: Date, breakfast: [FoodItem], lunch: [FoodItem], dinner: [FoodItem]) {

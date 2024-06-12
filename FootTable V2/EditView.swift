@@ -3,23 +3,29 @@
 //  FootTable V2
 //
 //  Created by Brian Vo on 5/31/24.
-//
+//Essentially this creates a new food item and we just replace the old one wih it
 
 import SwiftUI
 
 struct EditView: View {
+    //Keeping track of what day we're on and update it.
     @ObservedObject var dayManager: DayManager
     @Environment(\.dismiss) var dismiss
-    var foodItem: FoodItem // The food item to be edited
+    
+    var foodItem: FoodItem
+    
+    //Force refresh after updating
     @Binding var refreshID: UUID
     
+    
+    //Food item basic info
     @State private var name: String
     @State private var caloriesPerServing: String
     @State private var servingSize: String
     @State private var proteinPerServing: String
     @State private var amountEaten: String
-    @State private var servingType: String // Use a string property for servingType
-    @State private var stockLevel: String // Use a string property for stockLevel
+    @State private var servingType: String
+    @State private var stockLevel: String
     @State private var eatenServingType : String
     
     init(dayManager: DayManager, foodItem: FoodItem, refreshID: Binding<UUID>) {
@@ -40,6 +46,8 @@ struct EditView: View {
             _eatenServingType = State(initialValue: foodItem.eatenServingType)
         }
     
+    
+    //Turn everything into grams, easier conversion
     let conversionFactors: [String: Double] = [
         "g": 1.0,      // Grams
         "kg": 1000.0,  // Kilograms to grams
@@ -89,7 +97,7 @@ var servingSizeInGrams: Double {
                             
                         }
                         
-                        Section("Per serving calories/protein/amount "){
+                        Section("Per serving\n(calories/protein/amount)"){
                             HStack {
                                 HStack{
                                     TextField("Cals", text: $caloriesPerServing)
@@ -98,8 +106,6 @@ var servingSizeInGrams: Double {
                                     
                                     TextField("Amount", text: $servingSize)
                                         
-                                    
-                                    
                                 }
                                 
                                 
@@ -175,7 +181,7 @@ var servingSizeInGrams: Double {
         
        
         
-        // Find the index of the foodItem in the appropriate meal category
+        // Find the index of the foodItem in the appropriate meal category and swap it to the new fooditem
         if let index = dayManager.selectedDay.breakfast.firstIndex(where: { $0.id == foodItem.id }) {
 //            print("Before updating food item:")
 //            print("Protein Count: \(dayManager.selectedDay.proteinCount)")
@@ -195,9 +201,10 @@ var servingSizeInGrams: Double {
         
        
         
-        // Update the selected day in the day manager
+        //Update the selected day in the day manager
         dayManager.updateSelectedDay()
         
+        //Make sure we show the updated page
         refreshID = UUID()
 
     }

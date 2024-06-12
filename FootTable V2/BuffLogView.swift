@@ -96,7 +96,7 @@ struct BuffLogView: View {
                     }
                 }
                 
-                Text("\(dayManager.selectedDay.totalCalories, specifier: "%.0f") Calories out of \(dayManager.selectedDay.calorieIntake, specifier: "%.0f")")
+                Text("\(dayManager.selectedDay.totalCalories, specifier: "%.1f") Calories out of \(dayManager.selectedDay.calorieIntake, specifier: "%.1f")")
                 
                 Text("\(dayManager.selectedDay.totalProtein, specifier: "%.1f") out of \(dayManager.selectedDay.proteinIntake, specifier: "%.1f")")
             }
@@ -108,11 +108,13 @@ struct BuffLogView: View {
                     }
             }
             .toolbar {
-                ToolbarItem {
-                    Button("List") {
-                        printDaysList()
-                    }
-                }
+                
+                //Test button
+//                ToolbarItem {
+//                    Button("List") {
+//                        printDaysList()
+//                    }
+//                }
                 ToolbarItem {
                     Button("Update") {
                         showProteinView.toggle()

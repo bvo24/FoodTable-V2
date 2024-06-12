@@ -75,25 +75,25 @@ struct FoodItem : Identifiable, Codable, Hashable {
         var grams: Double = 0.0
 
         switch type.lowercased() {
-        case "g", "grams":
+        case "g":
             grams = value
-        case "kg", "kilograms":
+        case "kg":
             grams = value * 1000
-        case "oz", "ounces":
+        case "oz":
             grams = value * 28.35
-        case "lbs", "pounds":
+        case "lbs":
             grams = value * 453.592
-        case "ml", "milliliters":
+        case "ml":
             grams = value * 1
-        case "l", "liters":
+        case "l":
             grams = value * 1000
         case "cups":
             grams = value * 236.588
-        case "tsp", "teaspoons":
+        case "tsp":
             grams = value * 4.929
-        case "tbsp", "tablespoons":
+        case "tbsp":
             grams = value * 14.787
-        case "fl oz", "fluid ounces":
+        case "fl oz":
             grams = value * 29.5735
         case "piece(s)":
             grams = value // Modify this based on specific item
@@ -103,9 +103,11 @@ struct FoodItem : Identifiable, Codable, Hashable {
 
         return grams
     }
-
+    
+    
 
 }
+
 
 extension String {
     var doubleValue: Double {

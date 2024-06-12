@@ -36,6 +36,8 @@ struct AddView: View {
     @State private var eatenServingType = FoodItem.measurementUnits[0]
     @State private var stockLevel = FoodItem.stockLevel[2]
     
+    @State private var searchBool = false
+    
     
     // Conversion factors for different units to grams
         let conversionFactors: [String: Double] = [
@@ -78,79 +80,129 @@ struct AddView: View {
             return (proteinPerServingValue / servingSizeInGrams) * amountEatenInGrams
         }
 
-
+    @State private var searchText = ""
+    
+    let searchItems : [searchItem] = Bundle.main.decode("foods.json")
+    
+    var filteredSearchItems : [searchItem]{
+        if searchText.isEmpty{
+            searchItems
+        }else{
+            searchItems.filter{
+                $0.name.localizedStandardContains(searchText)
+            }
+        }
+        
+        
+    }
 
 
     
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Name"){
-                    TextField("Food Name", text: $name)
+        NavigationView {
+            NavigationStack {
+                Button(searchBool ? "Add" : "Search") {
+                    searchBool.toggle()
                 }
+                .padding()
                 
-                
-                Section("Per serving"){
-                    HStack {
-                        TextField("Cals", text: $caloriesPerServing)
-                        TextField("Protein", text: $proteinPerServing)
-                        TextField("Amount", text: $servingSize)
-                        Picker("Measurement Units", selection: $servingType) {
-                            ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
-                                Text(servingType)
+                if searchBool {
+                    NavigationStack{
+                        List(filteredSearchItems, id: \.self) { food in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(food.name)
+                                        .font(.headline)
+                                    Text("Calories: \(food.calories)")
+                                        .foregroundColor(.secondary)
+                                    Text("Protein: \(food.protein)")
+                                        .foregroundColor(.secondary)
+                                    
+                                }
+                                Spacer()
+                                Text("Per \(food.servingSize) \(food.servingType)")
+                                
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                
+                                name = food.name
+                                caloriesPerServing = food.calories
+                                proteinPerServing = food.protein
+                                servingSize = food.servingSize
+                                servingType = "g"
+                                
+                                
+                                searchBool.toggle()
+                                print("Tapped \(food.name)")
                             }
                         }
-                        .labelsHidden()
+                        .searchable(text: $searchText, prompt: "Search your food item")
+                        .listRowSeparator(.visible)
                     }
-                }
-                
-                Section("Consumption details"){
-                    HStack{
-                        TextField("Amount eaten", text: $amountEaten)
-                        Picker("Measurement Units", selection: $eatenServingType) {
-                            ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
-                                Text(servingType)
+                } else {
+                    NavigationStack{
+                        Form {
+                            Section("Name") {
+                                TextField("Food Name", text: $name)
+                            }
+                            Section("Per serving\n(Calories/Protein/Amount)") {
+                                HStack {
+                                    TextField("Cals", text: $caloriesPerServing)
+                                    TextField("Protein", text: $proteinPerServing)
+                                    TextField("Amount", text: $servingSize)
+                                    Picker("Measurement Units", selection: $servingType) {
+                                        ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                                            Text(servingType)
+                                        }
+                                    }
+                                    .labelsHidden()
+                                }
+                            }
+                            Section("Consumption details") {
+                                HStack {
+                                    TextField("Amount eaten", text: $amountEaten)
+                                    Picker("Measurement Units", selection: $eatenServingType) {
+                                        ForEach(FoodItem.measurementUnits, id: \.self) { servingType in
+                                            Text(servingType)
+                                        }
+                                    }
+                                    .labelsHidden()
+                                }
+                                Picker("Stock Level", selection: $stockLevel) {
+                                    ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
+                                        Text(stockLevel)
+                                    }
+                                }
+                            }
+                            Section {
+                                Text("Total calories \(calories, specifier: "%.1f")")
+                                Text("Total protein \(protein, specifier: "%.1f")")
                             }
                         }
-                        .labelsHidden()
-                        
-                    }
-                    
-                    
-                    Picker("Stock Level", selection: $stockLevel) {
-                        ForEach(FoodItem.stockLevel, id: \.self) { stockLevel in
-                            Text(stockLevel)
-                        }
                     }
                 }
-                
-                Section{
-                    
-                    Text("Total calories \(calories, specifier: "%.1f")")
-                    Text("Total protein \(protein, specifier: "%.1f")")
-                    
-                }
-                
             }
+//            .navigationTitle("Search Or Add")
             .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            dismiss()
-                        }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
                     }
-                    
-                    ToolbarItem(placement: .confirmationAction) {
-                        let foodItem = FoodItem(id: UUID(), name: name, caloriesPerServing: caloriesPerServing , servingSize: servingSize, servingType: servingType, eatenServingType: eatenServingType ,amountEaten: amountEaten , proteinPerServing: proteinPerServing, stock: stockLevel)
-                        Button("Add Item") {
-                            addFoodItem(foodItem)
-                            dismiss()
-                        }
-                        .disabled(!foodItem.hasValidItem)
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    let foodItem = FoodItem(id: UUID(), name: name, caloriesPerServing: caloriesPerServing , servingSize: servingSize, servingType: servingType, eatenServingType: eatenServingType ,amountEaten: amountEaten , proteinPerServing: proteinPerServing, stock: stockLevel)
+                    Button("Add Item") {
+                        addFoodItem(foodItem)
+                        dismiss()
                     }
+                    .disabled(!foodItem.hasValidItem)
+                }
             }
         }
     }
+
 
     private func addFoodItem(_ foodItem: FoodItem) {
         switch meal {

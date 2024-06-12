@@ -4,6 +4,8 @@
 //
 //  Created by Brian Vo on 5/29/24.
 //
+//How we manage our days
+//Get rid of old days, change our date, update our day / create a new day when it's a new day
 
 
 import Foundation

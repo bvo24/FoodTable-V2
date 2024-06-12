@@ -4,13 +4,14 @@
 //
 //  Created by Brian Vo on 6/4/24.
 //
+//Calculate your protein and now calorie reccomended based on a couple of factors, saved on a userdefault so whenever they want to change it it takes 0 effort and allows us to save a default to those values and when it's a new day we will have it saved already
 
 import SwiftUI
 
 struct proteinView: View {
     @ObservedObject var dayManager: DayManager
-    @State private var proteinIntake: Int = 0
-    @State private var calorieIntake: Int = 0
+//    @State private var proteinIntake: Int = 0
+//    @State private var calorieIntake: Int = 0
     @Environment(\.dismiss) var dismiss
     let genders = ["Male", "Female"]
     
@@ -283,12 +284,12 @@ struct proteinView: View {
             }
         }
         .padding()
-        .onChange(of: proteinIntake) { old, new in
-            UserDefaults.standard.set(new, forKey: "proteinIntake")
-        }
-        .onChange(of: calorieIntake) { old, new in
-            UserDefaults.standard.set(new, forKey: "calorieIntake")
-        }
+//        .onChange(of: proteinIntake) { old, new in
+//            UserDefaults.standard.set(new, forKey: "proteinIntake")
+//        }
+//        .onChange(of: calorieIntake) { old, new in
+//            UserDefaults.standard.set(new, forKey: "calorieIntake")
+//        }
     }
 }
 
