@@ -102,7 +102,7 @@ struct BuffLogView: View {
             }
             .navigationTitle("Buff Log")
             .sheet(isPresented: $showAddView) {
-                AddView(dayManager: dayManager, meal: mealTime)
+                AddView(dayManager: dayManager, meal: mealTime, inventoryManager: InventoryManager())
                     .onDisappear {
                         refreshID = UUID()
                     }
@@ -110,11 +110,11 @@ struct BuffLogView: View {
             .toolbar {
                 
                 //Test button
-//                ToolbarItem {
-//                    Button("List") {
-//                        printDaysList()
-//                    }
-//                }
+                ToolbarItem {
+                    Button("List") {
+                        printDaysList()
+                    }
+                }
                 ToolbarItem {
                     Button("Update") {
                         showProteinView.toggle()

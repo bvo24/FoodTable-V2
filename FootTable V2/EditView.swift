@@ -12,6 +12,8 @@ struct EditView: View {
     @ObservedObject var dayManager: DayManager
     @Environment(\.dismiss) var dismiss
     
+    //Pass in the original food item we want to update
+    //This allows us to have previous values
     var foodItem: FoodItem
     
     //Force refresh after updating

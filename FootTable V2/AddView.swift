@@ -23,6 +23,7 @@ import SwiftUI
 struct AddView: View {
     @ObservedObject var dayManager: DayManager
     @Environment(\.dismiss) var dismiss
+    
     var meal: Meal
 
     @State private var name = ""
@@ -34,9 +35,10 @@ struct AddView: View {
     @State private var amountEaten = ""
     @State private var servingType = FoodItem.measurementUnits[0]
     @State private var eatenServingType = FoodItem.measurementUnits[0]
-    @State private var stockLevel = FoodItem.stockLevel[2]
+    @State private var stockLevel = FoodItem.stockLevel[0]
     
     @State private var searchBool = false
+    @ObservedObject var inventoryManager : InventoryManager
     
     
     // Conversion factors for different units to grams
@@ -195,6 +197,10 @@ struct AddView: View {
                     let foodItem = FoodItem(id: UUID(), name: name, caloriesPerServing: caloriesPerServing , servingSize: servingSize, servingType: servingType, eatenServingType: eatenServingType ,amountEaten: amountEaten , proteinPerServing: proteinPerServing, stock: stockLevel)
                     Button("Add Item") {
                         addFoodItem(foodItem)
+                        if stockLevel != "N/A"{
+                            inventoryManager.addInventoryItem(inventoryItem(name: name, stock: stockLevel))
+                        }
+                        
                         dismiss()
                     }
                     .disabled(!foodItem.hasValidItem)
@@ -218,5 +224,5 @@ struct AddView: View {
 }
 
 #Preview {
-    AddView(dayManager: DayManager(), meal: .breakfast)
+    AddView(dayManager: DayManager(), meal: .breakfast, inventoryManager: InventoryManager())
 }

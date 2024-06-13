@@ -12,7 +12,7 @@ struct FoodItem : Identifiable, Codable, Hashable {
         "g", "kg", "oz", "lbs", "ml", "l", "cups", "tsp", "tbsp", "fl oz", "piece(s)"
     ]
     
-    static let stockLevel = [ "Low", "Medium", "High"]
+    static let stockLevel = [ "N/A", "Low", "Medium", "High"]
     
     var id : UUID
     var name : String
