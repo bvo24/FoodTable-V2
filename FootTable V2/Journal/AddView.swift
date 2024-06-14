@@ -198,6 +198,7 @@ struct AddView: View {
                     Button("Add Item") {
                         addFoodItem(foodItem)
                         if stockLevel != "N/A"{
+                            print("added item")
                             inventoryManager.addInventoryItem(inventoryItem(name: name, stock: stockLevel))
                         }
                         

@@ -16,25 +16,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @StateObject private var dayManager = DayManager()
-    @StateObject private var inventory = InventoryManager()
-    @State private var totalProtein = UserDefaults.standard.double(forKey: "totalProtein")
-    
-        var body: some View {
-            TabView {
-                // Other tabs...
-                BuffLogView(dayManager: dayManager)
-                    .tabItem { Label("Buff Log", systemImage: "shield") }
-                InventoryView()
-                    .tabItem { Label("Inventory", systemImage: "bag.fill") }
-                // Other tabs...
-            }
-        }
-        
-    
-}
+    @StateObject private var inventoryManager = InventoryManager()
+    @State private var selectedTab: Tab = .buffLog
 
-#Preview {
-    ContentView()
+    enum Tab {
+        case buffLog
+        case inventory
+    }
+
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            
+            BuffLogView(dayManager: dayManager)
+            .tabItem {
+                Label("Buff Log", systemImage: "shield")
+            }
+            .tag(Tab.buffLog)
+
+            
+            InventoryView(inventoryManager: inventoryManager)
+            .tabItem {
+                Label("Inventory", systemImage: "bag.fill")
+            }
+            .tag(Tab.inventory)
+        }
+    }
 }

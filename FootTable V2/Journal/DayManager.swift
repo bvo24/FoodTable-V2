@@ -139,6 +139,8 @@ class DayManager: ObservableObject {
     }
 
     func listAllDays() {
+        print("Removing old day?")
+        removeOldDays()
         print("Current days in manager:")
         for day in days {
             print(day.date)

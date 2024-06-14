@@ -12,6 +12,7 @@ class InventoryManager: ObservableObject {
     
     @Published var inventory: [inventoryItem] = []
     
+    
     init() {
         loadInventory()
     }
@@ -21,12 +22,22 @@ class InventoryManager: ObservableObject {
         saveInventory()
     }
     
-    func removeInventoryItem(at index: Int) {
-        inventory.remove(at: index)
+    func updateInventoryItem(item : inventoryItem){
+        
+        if let index = inventory.firstIndex(where: { $0.id == item.id}) {
+            inventory[index] = item
+            saveInventory()
+        }
+    }
+    
+    
+    func removeInventoryItem(at index: IndexSet) {
+        
+        inventory.remove(atOffsets: index)
         saveInventory()
     }
     
-    private func loadInventory() {
+    func loadInventory() {
         do {
             let data = try Data(contentsOf: savePath)
             inventory = try JSONDecoder().decode([inventoryItem].self, from: data)
@@ -35,7 +46,7 @@ class InventoryManager: ObservableObject {
         }
     }
 
-    private func saveInventory() {
+    func saveInventory() {
         do {
             let data = try JSONEncoder().encode(inventory)
             try data.write(to: savePath, options: [.atomic, .completeFileProtection])

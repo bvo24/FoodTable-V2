@@ -20,6 +20,7 @@ class inventoryItem : Identifiable, ObservableObject, Codable {
             self.name = name
             self.stock = stock
     }
+    static let example = inventoryItem(name: "Nutella", stock: "Low")
 
     
     
