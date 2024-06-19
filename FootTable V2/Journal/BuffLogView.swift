@@ -9,10 +9,17 @@ struct BuffLogView: View {
 //    @State private var proteinCount: Int = UserDefaults.standard.integer(forKey: "proteinCount")
     @State private var refreshID = UUID()
 
+    let darkWoodColor = Color(red: 0.43, green: 0.26, blue: 0.19) // Dark brown
+        let mediumWoodColor = Color(red: 0.60, green: 0.40, blue: 0.28) // Medium brown
+        let lightWoodColor = Color(red: 0.83, green: 0.70, blue: 0.44) // Light brown
+
+    
+    
+    
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("Breakfast")) {
+                Section(header: Text("Breakfast").foregroundStyle(.white)) {
                     ForEach(dayManager.selectedDay.breakfast, id: \.self) { food in
                         NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)) {
                             HStack {
@@ -20,27 +27,36 @@ struct BuffLogView: View {
                                 Spacer()
                                 Text("\(food.calories, specifier: "%.1f") cal")
                             }
+                            .foregroundColor(Color.white)
+//                            .background(Color.brown)
                         }
+                        
                         .onDisappear {
                             refreshID = UUID()
                         }
                     }
+                    
                     .onDelete { indexSet in
                         dayManager.selectedDay.breakfast.remove(atOffsets: indexSet)
                         dayManager.updateSelectedDay()
                         refreshID = UUID()
                     }
-                    .background(EmptyView().id(refreshID))
+                    .listRowBackground(mediumWoodColor)
+//                    .background(EmptyView().id(refreshID))
                     
                     Button(action: {
                         mealTime = .breakfast
                         showAddView.toggle()
                     }) {
                         Label("Add Breakfast Item", systemImage: "plus")
+                            .foregroundStyle(.white)
+                        
                     }
+                    .listRowBackground(lightWoodColor)
+                    
                 }
 
-                Section(header: Text("Lunch")) {
+                Section(header: Text("Lunch").foregroundStyle(.white)) {
                     ForEach(dayManager.selectedDay.lunch, id: \.self) { food in
                         NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)) {
                             HStack {
@@ -48,6 +64,7 @@ struct BuffLogView: View {
                                 Spacer()
                                 Text("\(food.calories, specifier: "%.1f") cal")
                             }
+                            .foregroundStyle(Color.white)
                         }
                         .onDisappear {
                             refreshID = UUID()
@@ -58,6 +75,7 @@ struct BuffLogView: View {
                         dayManager.updateSelectedDay()
                         refreshID = UUID()
                     }
+                    .listRowBackground(mediumWoodColor)
                     .background(EmptyView().id(refreshID))
                     
                     Button(action: {
@@ -66,9 +84,11 @@ struct BuffLogView: View {
                     }) {
                         Label("Add Lunch Item", systemImage: "plus")
                     }
+                    .foregroundStyle(Color.white)
+                    .listRowBackground(lightWoodColor)
                 }
 
-                Section(header: Text("Dinner")) {
+                Section(header: Text("Dinner").foregroundStyle(.white)) {
                     ForEach(dayManager.selectedDay.dinner, id: \.self) { food in
                         NavigationLink(destination: EditView(dayManager: dayManager, foodItem: food, refreshID: $refreshID)) {
                             HStack {
@@ -100,7 +120,9 @@ struct BuffLogView: View {
                 
                 Text("\(dayManager.selectedDay.totalProtein, specifier: "%.1f") out of \(dayManager.selectedDay.proteinIntake, specifier: "%.1f")")
             }
-            .navigationTitle("Buff Log")
+           
+            .navigationTitle("Journal")
+//            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showAddView) {
                 AddView(dayManager: dayManager, meal: mealTime, inventoryManager: InventoryManager())
                     .onDisappear {
@@ -140,6 +162,13 @@ struct BuffLogView: View {
                                             .labelsHidden()
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(darkWoodColor)
+            .background(
+                CustomNavigationBar(backgroundColor: UIColor.lightBrown, titleColor: UIColor.white)
+                                    .edgesIgnoringSafeArea(.top)
+            )
+            
             .id(refreshID)
         }
     }
@@ -171,6 +200,15 @@ struct BuffLogView: View {
 enum Meal {
     case breakfast, lunch, dinner
 }
+
+import UIKit
+
+extension UIColor {
+    static var lightBrown: UIColor {
+        return UIColor(red: 0.827, green: 0.686, blue: 0.518, alpha: 1.0)
+    }
+}
+
 
 #Preview {
     BuffLogView(dayManager: DayManager())

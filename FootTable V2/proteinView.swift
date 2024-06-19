@@ -167,10 +167,33 @@ struct proteinView: View {
 //    Extra active (very hard exercise/sports & physical job or 2x training): BMR x 1.9
     
     
+    func saveChanges(){
+        
+        dayManager.selectedDay.proteinIntake = Double(recProtein)
+        dayManager.selectedDay.calorieIntake = Double(recCals)
+        UserDefaults.standard.set(recProtein, forKey: "proteinIntake")
+        UserDefaults.standard.set(recCals, forKey: "calorieIntake")
+        UserDefaults.standard.set(weight, forKey: "weight")
+        UserDefaults.standard.set(gender, forKey: "gender")
+        UserDefaults.standard.set(height, forKey: "height")
+        UserDefaults.standard.set(ageInYears, forKey: "age")
+        UserDefaults.standard.set(selectedActivityIndex, forKey: "selectedActivityIndex")
+        UserDefaults.standard.set(heightUnit, forKey: "heightUnit")
+        UserDefaults.standard.set(weightUnit, forKey: "weightUnit")
+        UserDefaults.standard.set(selectedDietGoalsIndex, forKey: "selectedDietGoalsIndex")
+        UserDefaults.standard.set(selectedProteinGoalIndex, forKey: "selectedProteinGoalIndex")
+        
+        dayManager.updateSelectedDay()
+        
+        
+    }
+    
+    
     
     
     var body: some View {
-        VStack {
+        NavigationView{
+//        VStack {
 //            Text("Enter your total protein intake")
 //                .font(.headline)
 //            
@@ -202,7 +225,7 @@ struct proteinView: View {
                 HStack{
                     Text("Height:")
                     if(heightUnit == "ft"){
-                        TextField("5'6", text: $height)
+                        TextField("5 ft 6", text: $height)
                     }
                     else{
                         TextField("", text: $height)
@@ -223,7 +246,7 @@ struct proteinView: View {
                         ForEach(weightUnits, id: \.self){ unit in
                             Text(unit)
                         }
-                       
+                        
                     }
                     .labelsHidden()
                     .pickerStyle(.segmented)
@@ -245,6 +268,7 @@ struct proteinView: View {
                 Picker("Protein Goal:", selection: $selectedProteinGoalIndex){
                     ForEach(0..<proteinGoals.count, id: \.self){ index in
                         Text(proteinGoals[index])
+                            .font(Font.custom("PixelifySans-Regular", size: 16))
                     }
                 }
                 
@@ -254,36 +278,47 @@ struct proteinView: View {
                     }
                 }
                 
+                
+                
                 //Text("Reccommended Calories: \(recCals, specifier: "%.1f")")
-//                ( BMRMale * TDEE ) + Double(dietingCalories[selectedDietGoalsIndex])
+                //                ( BMRMale * TDEE ) + Double(dietingCalories[selectedDietGoalsIndex])
                 Text("Reccommended Calories:\n\(recCals + -Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") + \(Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") = \(recCals, specifier: "%.1f")")
                 
                 Text("Reccommended Protein: \(recProtein, specifier: "%.1f") grams")
                 
                 Button("Save") {
-                    dayManager.selectedDay.proteinIntake = Double(recProtein)
-                    dayManager.selectedDay.calorieIntake = Double(recCals)
-                    UserDefaults.standard.set(recProtein, forKey: "proteinIntake")
-                    UserDefaults.standard.set(recCals, forKey: "calorieIntake")
-                    UserDefaults.standard.set(weight, forKey: "weight")
-                    UserDefaults.standard.set(gender, forKey: "gender")
-                    UserDefaults.standard.set(height, forKey: "height")
-                    UserDefaults.standard.set(ageInYears, forKey: "age")
-                    UserDefaults.standard.set(selectedActivityIndex, forKey: "selectedActivityIndex")
-                    UserDefaults.standard.set(heightUnit, forKey: "heightUnit")
-                    UserDefaults.standard.set(weightUnit, forKey: "weightUnit")
-                    UserDefaults.standard.set(selectedDietGoalsIndex, forKey: "selectedDietGoalsIndex")
-                    UserDefaults.standard.set(selectedProteinGoalIndex, forKey: "selectedProteinGoalIndex")
                     
-                    dayManager.updateSelectedDay()
-//                    print("Protein Intake: \(dayManager.selectedDay.proteinIntake)")
-//                    print("Calorie Intake: \(dayManager.selectedDay.calorieIntake)")
+                    //                    print("Protein Intake: \(dayManager.selectedDay.proteinIntake)")
+                    //                    print("Calorie Intake: \(dayManager.selectedDay.calorieIntake)")
+                    saveChanges()
                     dismiss()
                 }
-                .padding()
+//                .padding()
+            
+            .toolbar{
+                ToolbarItem(placement: .cancellationAction){
+                    Button("Dismiss"){
+                        dismiss()
+                    }
+                    
+                }
+                ToolbarItem(placement: .confirmationAction){
+                    Button("Update"){
+                        saveChanges()
+                        dismiss()
+                    }
+                }
+                
             }
+            }
+            
+            
+            
         }
-        .padding()
+        
+        
+        
+//        .padding()
 //        .onChange(of: proteinIntake) { old, new in
 //            UserDefaults.standard.set(new, forKey: "proteinIntake")
 //        }

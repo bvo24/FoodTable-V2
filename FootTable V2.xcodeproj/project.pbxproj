@@ -19,6 +19,11 @@
 		9B5705F02C193BDB0056EBE8 /* inventoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705EF2C193BDB0056EBE8 /* inventoryItem.swift */; };
 		9B5705F22C1A85FA0056EBE8 /* inventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705F12C1A85FA0056EBE8 /* inventoryManager.swift */; };
 		9B5705F62C1BC3F90056EBE8 /* inventoryItemEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705F52C1BC3F90056EBE8 /* inventoryItemEditView.swift */; };
+		9B5705F82C1E0D2E0056EBE8 /* addInventoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705F72C1E0D2E0056EBE8 /* addInventoryItemView.swift */; };
+		9B5705FA2C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B5705F92C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf */; };
+		9B5705FD2C224C330056EBE8 /* sortOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5705FC2C224C330056EBE8 /* sortOptionView.swift */; };
+		9B5706032C231BC80056EBE8 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5706022C231BC80056EBE8 /* TestView.swift */; };
+		9B5706052C2326060056EBE8 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5706042C2326060056EBE8 /* CustomNavigationBar.swift */; };
 		9B68B0212C06B64B00C84892 /* FootTable_V2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */; };
 		9B68B0232C06B64B00C84892 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B68B0222C06B64B00C84892 /* ContentView.swift */; };
 		9B68B0252C06B64C00C84892 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B68B0242C06B64C00C84892 /* Assets.xcassets */; };
@@ -42,6 +47,12 @@
 		9B5705EF2C193BDB0056EBE8 /* inventoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryItem.swift; sourceTree = "<group>"; };
 		9B5705F12C1A85FA0056EBE8 /* inventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryManager.swift; sourceTree = "<group>"; };
 		9B5705F52C1BC3F90056EBE8 /* inventoryItemEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryItemEditView.swift; sourceTree = "<group>"; };
+		9B5705F72C1E0D2E0056EBE8 /* addInventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addInventoryItemView.swift; sourceTree = "<group>"; };
+		9B5705F92C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		9B5705FB2C2235DF0056EBE8 /* FootTable-V2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "FootTable-V2-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9B5705FC2C224C330056EBE8 /* sortOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortOptionView.swift; sourceTree = "<group>"; };
+		9B5706022C231BC80056EBE8 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		9B5706042C2326060056EBE8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		9B68B01D2C06B64B00C84892 /* FootTable V2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FootTable V2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootTable_V2App.swift; sourceTree = "<group>"; };
 		9B68B0222C06B64B00C84892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,7 +81,9 @@
 				9B5705EF2C193BDB0056EBE8 /* inventoryItem.swift */,
 				9B5705F52C1BC3F90056EBE8 /* inventoryItemEditView.swift */,
 				9B5705F12C1A85FA0056EBE8 /* inventoryManager.swift */,
+				9B5705FC2C224C330056EBE8 /* sortOptionView.swift */,
 				9B5705ED2C193AC70056EBE8 /* InventoryView.swift */,
+				9B5705F72C1E0D2E0056EBE8 /* addInventoryItemView.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -81,6 +94,7 @@
 				9B5705D52C06E2E60056EBE8 /* DayManager.swift */,
 				9B5705DF2C0A75800056EBE8 /* EditView.swift */,
 				9B68B0302C06B6B300C84892 /* BuffLogView.swift */,
+				9B5706042C2326060056EBE8 /* CustomNavigationBar.swift */,
 				9B68B0342C06B70F00C84892 /* FoodItem.swift */,
 				9B5705E92C16744D0056EBE8 /* searchItem.swift */,
 				9B5705D92C07A8FE0056EBE8 /* AddView.swift */,
@@ -107,7 +121,10 @@
 		9B68B01F2C06B64B00C84892 /* FootTable V2 */ = {
 			isa = PBXGroup;
 			children = (
+				9B5705FB2C2235DF0056EBE8 /* FootTable-V2-Info.plist */,
+				9B5705F92C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf */,
 				9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */,
+				9B5706022C231BC80056EBE8 /* TestView.swift */,
 				9B68B0222C06B64B00C84892 /* ContentView.swift */,
 				9B5705EB2C1675550056EBE8 /* BundleDecodable.swift */,
 				9B5705F32C1BC3380056EBE8 /* Inventory */,
@@ -189,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5705FA2C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf in Resources */,
 				9B5705E82C1673F40056EBE8 /* foods.json in Resources */,
 				9B68B0282C06B64C00C84892 /* Preview Assets.xcassets in Resources */,
 				9B68B0252C06B64C00C84892 /* Assets.xcassets in Resources */,
@@ -202,10 +220,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5706032C231BC80056EBE8 /* TestView.swift in Sources */,
+				9B5705FD2C224C330056EBE8 /* sortOptionView.swift in Sources */,
 				9B5705D62C06E2E60056EBE8 /* DayManager.swift in Sources */,
 				9B5705EC2C1675560056EBE8 /* BundleDecodable.swift in Sources */,
 				9B5705EA2C16744D0056EBE8 /* searchItem.swift in Sources */,
 				9B68B0312C06B6B300C84892 /* BuffLogView.swift in Sources */,
+				9B5706052C2326060056EBE8 /* CustomNavigationBar.swift in Sources */,
 				9B68B0332C06B6D500C84892 /* FoodView.swift in Sources */,
 				9B5705E22C0FE7FE0056EBE8 /* proteinView.swift in Sources */,
 				9B68B0232C06B64B00C84892 /* ContentView.swift in Sources */,
@@ -218,6 +239,7 @@
 				9B5705F62C1BC3F90056EBE8 /* inventoryItemEditView.swift in Sources */,
 				9B5705EE2C193AC70056EBE8 /* InventoryView.swift in Sources */,
 				9B68B0352C06B70F00C84892 /* FoodItem.swift in Sources */,
+				9B5705F82C1E0D2E0056EBE8 /* addInventoryItemView.swift in Sources */,
 				9B68B02F2C06B66500C84892 /* Day.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,6 +376,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"FootTable V2/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FootTable-V2-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -382,6 +405,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"FootTable V2/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FootTable-V2-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

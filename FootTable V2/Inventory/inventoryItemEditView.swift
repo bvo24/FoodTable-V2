@@ -16,12 +16,14 @@ struct inventoryItemEditView: View {
     
     @State private var name : String
     @State private var stock : String
+    @State private var markState : Bool
     
     init(inventoryManager: InventoryManager, inventoryItem: inventoryItem) {
         self.inventoryManager = inventoryManager
         self.item = inventoryItem
         _name = State(initialValue: item.name)
         _stock = State(initialValue: item.stock)
+        _markState = State(initialValue: item.markToGather)
     }
     
     
@@ -37,11 +39,20 @@ struct inventoryItemEditView: View {
                 }
             }
             
+            Toggle("Mark to gather", isOn: $markState)
+            
         }
         .toolbar{
+            
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    dismiss()
+                }
+            }
+            
             ToolbarItem{
                 Button("Update"){
-                    let updatedItem = inventoryItem(id: item.id, name: name, stock: stock)
+                    let updatedItem = inventoryItem(id: item.id, name: name, stock: stock, markToGather: markState)
                     inventoryManager.updateInventoryItem(item: updatedItem)
                     dismiss()
                 }

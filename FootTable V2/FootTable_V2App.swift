@@ -8,10 +8,33 @@
 import SwiftUI
 
 @main
+
+
+
+
 struct FootTable_V2App: App {
+    
+    init() {
+        let appear = UINavigationBarAppearance()
+
+        let atters: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "PixelifySans-Regular", size: 16)!
+        ]
+
+        appear.largeTitleTextAttributes = atters
+        appear.titleTextAttributes = atters
+        UINavigationBar.appearance().standardAppearance = appear
+        UINavigationBar.appearance().compactAppearance = appear
+        UINavigationBar.appearance().scrollEdgeAppearance = appear
+        
+         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.init(name: "PixelifySans-Regular", size: 15)! ], for: .normal)
+        
+     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.font, Font.custom("PixelifySans-Regular", size: 16))
         }
     }
 }

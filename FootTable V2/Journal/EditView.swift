@@ -151,18 +151,24 @@ var servingSizeInGrams: Double {
                         }
                     }
                     .navigationBarTitle("Edit Food Item")
-                    .navigationBarItems(
-                        leading:
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {
                                 dismiss()
-                            },
-                        trailing:
-                            Button("Save") {
+                            }
+                        }
+                        
+                        ToolbarItem{
+                            Button("Add"){
                                 saveChanges()
                                 dismiss()
                             }
-                    )
+                            
+                            
+                        }
+                    }
                 }
+                .navigationBarBackButtonHidden(true) // Hide the back button
             }
             
     private func saveChanges() {

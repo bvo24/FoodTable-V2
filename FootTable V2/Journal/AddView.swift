@@ -115,7 +115,7 @@ struct AddView: View {
                             HStack {
                                 VStack(alignment: .leading) {
                                     Text(food.name)
-                                        .font(.headline)
+                                        .font(Font.custom("PixelifySans-Regular_Bold", size: 16))
                                     Text("Calories: \(food.calories)")
                                         .foregroundColor(.secondary)
                                     Text("Protein: \(food.protein)")
