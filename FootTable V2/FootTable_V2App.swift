@@ -27,7 +27,12 @@ struct FootTable_V2App: App {
         UINavigationBar.appearance().compactAppearance = appear
         UINavigationBar.appearance().scrollEdgeAppearance = appear
         
-         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.init(name: "PixelifySans-Regular", size: 15)! ], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.init(name: "PixelifySans-Regular", size: 15)! ], for: .normal)
+//        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "PixelifySans-Regular", size: 20)!]
+        
+        
+            UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "PixelifySans-Regular", size: 20)!]
+        
         
      }
     

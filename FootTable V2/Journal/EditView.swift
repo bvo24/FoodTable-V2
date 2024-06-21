@@ -46,6 +46,15 @@ struct EditView: View {
             _servingType = State(initialValue: foodItem.servingType)
             _stockLevel = State(initialValue: foodItem.stock)
             _eatenServingType = State(initialValue: foodItem.eatenServingType)
+            
+    
+                //Use this if NavigationBarTitle is with Large Font
+//                UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
+
+                //Use this if NavigationBarTitle is with displayMode = .inline
+//                UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
+            
+        
         }
     
     
@@ -57,7 +66,8 @@ struct EditView: View {
         "lbs": 453.59, // Pounds to grams
         "ml": 1.0,     // Milliliters (assuming water density)
         "l": 1000.0,   // Liters to milliliters
-        "cups": 236.59,// Cups to milliliters (standard conversion)
+        "cups": 236.59,
+        "piece(s)": 1.0// Cups to milliliters (standard conversion)
         // Add more conversions as needed
     ]
 
@@ -98,6 +108,8 @@ var servingSizeInGrams: Double {
                             TextField("Food Name", text: $name)
                             
                         }
+                        .listRowBackground(Color.lightWood)
+                        .foregroundStyle(.white)
                         
                         Section("Per serving\n(calories/protein/amount)"){
                             HStack {
@@ -116,9 +128,12 @@ var servingSizeInGrams: Double {
                                         Text(unit)
                                     }
                                 }
+                                .tint(.white)
                                 .labelsHidden()
                             }
                         }
+                        .listRowBackground(Color.lightWood)
+                        .foregroundStyle(.white)
                         
                         Section("Consumption Details"){
                             HStack{
@@ -130,9 +145,12 @@ var servingSizeInGrams: Double {
                                         Text(unit)
                                     }
                                 }
+                                .tint(.white)
                                 
                             }
                         }
+                        .listRowBackground(Color.lightWood)
+                        .foregroundStyle(.white)
                         
                         
                         
@@ -141,16 +159,33 @@ var servingSizeInGrams: Double {
                             Picker("Stock Level", selection: $stockLevel) {
                                 ForEach(FoodItem.stockLevel, id: \.self) { stock in
                                     Text(stock)
+                                        
                                 }
                             }
+                            .tint(.white)
+                            
+                            
+                            
+                           
+                            
                         }
+                        .listRowBackground(Color.lightWood)
+                        .foregroundStyle(.white)
+                        
                         
                         Section(header: Text("Calculated Values")) {
                             Text("Total Calories: \(calories, specifier: "%.1f")")
                             Text("Total Protein: \(protein, specifier: "%.1f")")
                         }
+                        .listRowBackground(Color.lightWood)
+                        .foregroundStyle(.white)
                     }
+                    .scrollContentBackground(.hidden)
+                    .background(Color.darkWood)
                     .navigationBarTitle("Edit Food Item")
+                    .background(
+                        CustomNavigationBar(backgroundColor: UIColor.lightBrown, titleColor: UIColor.black)
+                    )
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {

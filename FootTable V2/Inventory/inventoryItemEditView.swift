@@ -42,6 +42,7 @@ struct inventoryItemEditView: View {
             Toggle("Mark to gather", isOn: $markState)
             
         }
+        .navigationBarBackButtonHidden(true) 
         .toolbar{
             
             ToolbarItem(placement: .cancellationAction) {

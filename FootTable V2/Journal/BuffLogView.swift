@@ -9,14 +9,16 @@ struct BuffLogView: View {
 //    @State private var proteinCount: Int = UserDefaults.standard.integer(forKey: "proteinCount")
     @State private var refreshID = UUID()
 
-    let darkWoodColor = Color(red: 0.43, green: 0.26, blue: 0.19) // Dark brown
-        let mediumWoodColor = Color(red: 0.60, green: 0.40, blue: 0.28) // Medium brown
-        let lightWoodColor = Color(red: 0.83, green: 0.70, blue: 0.44) // Light brown
+    
+    
 
     
     
     
     var body: some View {
+        
+        
+        
         NavigationStack {
             List {
                 Section(header: Text("Breakfast").foregroundStyle(.white)) {
@@ -41,7 +43,7 @@ struct BuffLogView: View {
                         dayManager.updateSelectedDay()
                         refreshID = UUID()
                     }
-                    .listRowBackground(mediumWoodColor)
+                    .listRowBackground(Color.mediumWood)
 //                    .background(EmptyView().id(refreshID))
                     
                     Button(action: {
@@ -52,7 +54,7 @@ struct BuffLogView: View {
                             .foregroundStyle(.white)
                         
                     }
-                    .listRowBackground(lightWoodColor)
+                    .listRowBackground(Color.lightWood)
                     
                 }
 
@@ -75,7 +77,7 @@ struct BuffLogView: View {
                         dayManager.updateSelectedDay()
                         refreshID = UUID()
                     }
-                    .listRowBackground(mediumWoodColor)
+                    .listRowBackground(Color.mediumWood)
                     .background(EmptyView().id(refreshID))
                     
                     Button(action: {
@@ -85,7 +87,7 @@ struct BuffLogView: View {
                         Label("Add Lunch Item", systemImage: "plus")
                     }
                     .foregroundStyle(Color.white)
-                    .listRowBackground(lightWoodColor)
+                    .listRowBackground(Color.lightWood)
                 }
 
                 Section(header: Text("Dinner").foregroundStyle(.white)) {
@@ -101,11 +103,13 @@ struct BuffLogView: View {
                             refreshID = UUID()
                         }
                     }
+                    
                     .onDelete { indexSet in
                         dayManager.selectedDay.dinner.remove(atOffsets: indexSet)
                         dayManager.updateSelectedDay()
                         refreshID = UUID()
                     }
+                    .listRowBackground(Color.mediumWood)
                     .background(EmptyView().id(refreshID))
                     
                     Button(action: {
@@ -114,14 +118,19 @@ struct BuffLogView: View {
                     }) {
                         Label("Add Dinner Item", systemImage: "plus")
                     }
+                    .foregroundStyle(.white)
+                    .listRowBackground(Color.lightWood)
                 }
                 
                 Text("\(dayManager.selectedDay.totalCalories, specifier: "%.1f") Calories out of \(dayManager.selectedDay.calorieIntake, specifier: "%.1f")")
+                    .listRowBackground(Color.lightWood)
                 
                 Text("\(dayManager.selectedDay.totalProtein, specifier: "%.1f") out of \(dayManager.selectedDay.proteinIntake, specifier: "%.1f")")
+                    .listRowBackground(Color.lightWood)
             }
            
-            .navigationTitle("Journal")
+//            .navigationTitle("Journal")
+            //.navigationBarTitle (Text("Dashboard"), displayMode: .inline)
 //            .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showAddView) {
                 AddView(dayManager: dayManager, meal: mealTime, inventoryManager: InventoryManager())
@@ -129,15 +138,42 @@ struct BuffLogView: View {
                         refreshID = UUID()
                     }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                                VStack {
+                                    Text("Journal")
+                                        .font(.custom("PixelifySans-Regular", size: 24))
+                                      .foregroundColor(Color.black)
+                                }
+                            }
                 
                 //Test button
-                ToolbarItem {
-                    Button("List") {
-                        printDaysList()
-                    }
+//                ToolbarItem {
+//                    Button("List") {
+//                        printDaysList()
+//                    }
+//                }
+                ToolbarItem(placement: .topBarTrailing) {
+                                    
+                    
+                        
+                        
+                        DatePicker("Select Date", selection: $selectedDate, in: Calendar.current.date(byAdding: .day, value: -6, to: Date())!...Date.distantFuture, displayedComponents: .date)
+                            .datePickerStyle(.compact)
+                            
+                            .onChange(of: selectedDate) { oldValue, newValue in
+                                print("Selected Date changed from: \(oldValue) to: \(newValue)")
+                                changeDate(to: newValue)
+                            }
+                            .font(.custom("PixelifySans-Regular", size: 20))
+                            .labelsHidden()
+                            .frame(maxWidth: 200)
+                    
+                                    
                 }
-                ToolbarItem {
+                
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Update") {
                         showProteinView.toggle()
                     }
@@ -149,23 +185,24 @@ struct BuffLogView: View {
                             }
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-//                    let today = Calendar.current.startOfDay(for: Date())
-//                    let sixDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today)!
-                    
-                    DatePicker("Select Date", selection: $selectedDate, in: Calendar.current.date(byAdding: .day, value: -6, to: Date())!...Date.distantFuture, displayedComponents: .date)
-                                            .datePickerStyle(.compact)
-                                            .onChange(of: selectedDate) { oldValue, newValue in
-                                                print("Selected Date changed from: \(oldValue) to: \(newValue)")
-                                                changeDate(to: newValue)
-                                            }
-                                            .labelsHidden()
-                }
+//                ToolbarItem {
+////                    let today = Calendar.current.startOfDay(for: Date())
+////                    let sixDaysAgo = Calendar.current.date(byAdding: .day, value: -6, to: today)!
+//                    HStack{
+//                        DatePicker("Select Date", selection: $selectedDate, in: Calendar.current.date(byAdding: .day, value: -6, to: Date())!...Date.distantFuture, displayedComponents: .date)
+//                            .datePickerStyle(.compact)
+//                            .onChange(of: selectedDate) { oldValue, newValue in
+//                                print("Selected Date changed from: \(oldValue) to: \(newValue)")
+//                                changeDate(to: newValue)
+//                            }
+//                            .labelsHidden()
+//                    }
+//                }
             }
             .scrollContentBackground(.hidden)
-            .background(darkWoodColor)
+            .background(Color.darkWood)
             .background(
-                CustomNavigationBar(backgroundColor: UIColor.lightBrown, titleColor: UIColor.white)
+                CustomNavigationBar(backgroundColor: UIColor.lightBrown, titleColor: UIColor.black)
                                     .edgesIgnoringSafeArea(.top)
             )
             
@@ -207,6 +244,15 @@ extension UIColor {
     static var lightBrown: UIColor {
         return UIColor(red: 0.827, green: 0.686, blue: 0.518, alpha: 1.0)
     }
+}
+
+extension Color {
+    static let darkWood = Color(red: 0.43, green: 0.26, blue: 0.19) // Dark brown
+    static let mediumWood = Color(red: 0.60, green: 0.40, blue: 0.28) // Medium brown
+    static let lightWood = Color(red: 0.83, green: 0.70, blue: 0.44) // Light brown
+    static let lightGray = Color(red: 0.85, green: 0.85, blue: 0.85)
+    
+    
 }
 
 

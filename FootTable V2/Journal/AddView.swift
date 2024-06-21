@@ -50,6 +50,7 @@ struct AddView: View {
             "ml": 1.0,     // Milliliters (assuming water density)
             "l": 1000.0,   // Liters to milliliters
             "cups": 236.59,// Cups to milliliters (standard conversion)
+            "piece(s)": 1.0
             // Add more conversions as needed
         ]
 
@@ -104,10 +105,21 @@ struct AddView: View {
     var body: some View {
         NavigationView {
             NavigationStack {
-                Button(searchBool ? "Add" : "Search") {
-                    searchBool.toggle()
-                }
-                .padding()
+                VStack(spacing: 0) {
+                                    Button(searchBool ? "Add" : "Search") {
+                                        searchBool.toggle()
+                                    }
+                                    .frame(maxWidth: .infinity, maxHeight: 50) // Adjust size as needed
+                                    .background(Color.lightGray)
+                                    .foregroundColor(Color.black)
+                                    .onTapGesture {
+                                       searchBool.toggle() // Toggle even if tapped outside the button area
+                                    }
+                                    .background(Color.clear) // Add transparent background around the button
+                                    
+                
+                
+                
                 
                 if searchBool {
                     NavigationStack{
@@ -122,10 +134,13 @@ struct AddView: View {
                                         .foregroundColor(.secondary)
                                     
                                 }
+                               
                                 Spacer()
                                 Text("Per \(food.servingSize) \(food.servingType)")
                                 
                             }
+                            .listRowBackground(Color.lightWood)
+                            
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 
@@ -140,15 +155,20 @@ struct AddView: View {
                                 print("Tapped \(food.name)")
                             }
                         }
+                        .scrollContentBackground(.hidden)
+                        .background(Color.darkWood)
                         .searchable(text: $searchText, prompt: "Search your food item")
                         .listRowSeparator(.visible)
                     }
+                    
                 } else {
                     NavigationStack{
                         Form {
                             Section("Name") {
                                 TextField("Food Name", text: $name)
                             }
+                            .foregroundStyle(Color.white)
+                            .listRowBackground(Color.lightWood)
                             Section("Per serving\n(Calories/Protein/Amount)") {
                                 HStack {
                                     TextField("Cals", text: $caloriesPerServing)
@@ -162,6 +182,8 @@ struct AddView: View {
                                     .labelsHidden()
                                 }
                             }
+                            .foregroundStyle(Color.white)
+                            .listRowBackground(Color.lightWood)
                             Section("Consumption details") {
                                 HStack {
                                     TextField("Amount eaten", text: $amountEaten)
@@ -178,14 +200,25 @@ struct AddView: View {
                                     }
                                 }
                             }
+                            .foregroundStyle(Color.white)
+                            .listRowBackground(Color.lightWood)
                             Section {
                                 Text("Total calories \(calories, specifier: "%.1f")")
                                 Text("Total protein \(protein, specifier: "%.1f")")
                             }
+                            .foregroundStyle(Color.white)
+                            .listRowBackground(Color.lightWood)
                         }
+                        .scrollContentBackground(.hidden)
+                        .background(Color.darkWood)
                     }
+                    
                 }
+                
             }
+                
+            }
+            
 //            .navigationTitle("Search Or Add")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -207,9 +240,29 @@ struct AddView: View {
                     .disabled(!foodItem.hasValidItem)
                 }
             }
+//            .toolbar {
+//                ToolbarItem(placement: .cancellationAction) {
+//                    Button("Cancel") {
+//                        dismiss()
+//                    }
+//                }
+//                
+//                ToolbarItem{
+//                    Button("Add"){
+//                        saveChanges()
+//                        dismiss()
+//                    }
+//                    
+//                    
+//                }
+//            }
+            
         }
+        .background(
+            CustomNavigationBar(backgroundColor: UIColor.lightBrown, titleColor: UIColor.black)
+        )
+        
     }
-
 
     private func addFoodItem(_ foodItem: FoodItem) {
         switch meal {

@@ -7,42 +7,95 @@
 
 import SwiftUI
 
-struct TestView: View {
-    let candy = ["Chocolate", "Taffy", "Licorice"]
-    
+struct SimpleView: View {
+    @State private var toggleState = false
+    @State private var petCount = 0
     var body: some View {
+        Button {
+                    petCount += 1
+                } label: {
+                    Label("Pet the Dog", systemImage: "dog")
+                }
+                .symbolEffect(.bounce, value: petCount)
+                .font(.largeTitle)
         
-        List {
-            Section("TEST"){
-                ForEach(candy, id: \.self) { candy in
-                    HStack {
-                        Text(candy)
-                        //.background(Color.red)
-                        Spacer()
-                    }
-                    .background(Color.red) // Apply background to the entire row
-                }
-                .listRowBackground(Color.brown) // Apply background to list row
-                Button("Hi"){
-                    
-                }
-                .listRowBackground(Color.blue)
-                
-            }
-            
-        }
-        .scrollContentBackground(.hidden)
-        .background(.brown)
+//        NavigationView {
+//            NavigationStack {
+//                VStack(spacing: 0) {
+//                    Button(toggleState ? "Add" : "Search") {
+//                        toggleState.toggle()
+//                    }
+//                    .frame(maxWidth: .infinity, maxHeight: 50) // Adjust size as needed
+//                    .background(Color.red)
+//                    .foregroundColor(.white)
+//                    .onTapGesture {
+//                        toggleState.toggle() // Toggle even if tapped outside the button area
+//                    }
+//                    .background(Color.clear) // Add transparent background around the button
+//                    
+//                    if toggleState {
+//                        NavigationStack {
+//                            List {
+//                                Section(header: Text("Section 1")) {
+//                                    Text("Item 1")
+//                                    Text("Item 2")
+//                                }
+//                                .listRowBackground(Color.lightWood)
+//                                
+//                                Section(header: Text("Section 2")) {
+//                                    Text("Item 3")
+//                                    Text("Item 4")
+//                                }
+//                                .listRowBackground(Color.lightWood)
+//                            }
+//                            .scrollContentBackground(.hidden)
+//                            .background(Color.darkWood)
+//                        }
+//                    } else {
+//                        NavigationStack {
+//                            Form {
+//                                Section(header: Text("Name")) {
+//                                    TextField("Food Name", text: .constant(""))
+//                                }
+//                                .listRowBackground(Color.lightWood)
+//                                
+//                                Section(header: Text("Details")) {
+//                                    HStack {
+//                                        TextField("Detail 1", text: .constant(""))
+//                                        TextField("Detail 2", text: .constant(""))
+//                                    }
+//                                }
+//                                .listRowBackground(Color.lightWood)
+//                            }
+//                            .scrollContentBackground(.hidden)
+//                            .background(Color.darkWood)
+//                        }
+//                    }
+//                }
+//            }
+//            .navigationTitle("Simple View")
+//            .toolbar {
+//                ToolbarItem(placement: .cancellationAction) {
+//                    Button("Cancel") {
+//                        // Dismiss action
+//                    }
+//                }
+//                ToolbarItem(placement: .confirmationAction) {
+//                    Button("Confirm") {
+//                        // Confirm action
+//                    }
+//                }
+//            }
+//        }
     }
 }
-
-struct TestView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestView()
-    }
-}
-
 
 #Preview {
-    TestView()
+    SimpleView()
 }
+
+#Preview {
+    SimpleView()
+}
+
+

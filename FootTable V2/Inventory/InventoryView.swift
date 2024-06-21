@@ -75,7 +75,7 @@ struct InventoryView: View {
 
     var body: some View {
         
-            NavigationStack() {
+            NavigationStack{
                 List {
                     ForEach(sortedResults) { item in
                         NavigationLink(destination: inventoryItemEditView(inventoryManager: inventoryManager, inventoryItem: item)) {
@@ -92,14 +92,20 @@ struct InventoryView: View {
                                     .foregroundStyle(item.stock == "High" ? .green : item.stock == "Medium" ? .yellow : .red)
                             }
                         }
+                        
                         .contentShape(Rectangle())
                     }
                     .onDelete { indexSet in
                         inventoryManager.removeInventoryItem(at: indexSet)
                         refreshID = UUID()  // Update refreshID to refresh the view
                     }
+                    .listRowBackground(Color.lightWood)
+                    
                 }
+                .scrollContentBackground(.hidden)
+                .background(Color.darkWood)
                 .id(refreshID)  // Force view refresh by using the refreshID
+                
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         EditButton()
@@ -177,6 +183,7 @@ struct InventoryView: View {
                     }
                     
                 }
+                .background(Color.red)
                 
             }
             .onAppear {

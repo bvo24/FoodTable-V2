@@ -37,26 +37,38 @@ struct ContentView: View {
             
             BuffLogView(dayManager: dayManager)
             .tabItem {
-                Label {
-                    Text("Journal")
-                        
-                } icon: {
-                    Image("pixeljournal")
-                }
-                    
+
+                    Label("Journal", image: "pixeljournal")
                     
             }
+            //.symbolEffect(.bounce, value: 10)
             .tag(Tab.buffLog)
             .font(Font.custom("PixelifySans-Regular", size: 16))
+            
+            
 
             
             InventoryView(inventoryManager: inventoryManager)
             .tabItem {
                 Label("Inventory", image: "pixelbag")
             }
+            .symbolEffect(.bounce, value: selectedTab)
             .tag(Tab.inventory)
             .font(Font.custom("PixelifySans-Regular", size: 16))
         }
+            .tint(Color.black)
+            .customTabBarBackground(color: UIColor.lightBrown) // Example color
         
+    }
+}
+
+extension View {
+    func customTabBarBackground(color: UIColor) -> some View {
+        self.onAppear {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.backgroundColor = color
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 }
