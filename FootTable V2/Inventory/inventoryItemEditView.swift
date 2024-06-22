@@ -30,19 +30,26 @@ struct inventoryItemEditView: View {
     var body: some View {
         
         Form{
-            TextField("Edit ingredient name", text: $name)
-            
-            Picker("Update the stock", selection: $stock ){
-                ForEach(FoodItem.stockLevel, id: \.self ){ stock in
-                    Text(stock)
-                    
+            VStack{
+                TextField("Edit ingredient name", text: $name)
+                
+                Picker("Update the stock", selection: $stock ){
+                    ForEach(FoodItem.stockLevel, id: \.self ){ stock in
+                        Text(stock)
+                        
+                    }
                 }
+                
+                Toggle("Mark to gather", isOn: $markState)
+                    
             }
             
-            Toggle("Mark to gather", isOn: $markState)
+            .listRowBackground(Color.lightWood)
             
         }
-        .navigationBarBackButtonHidden(true) 
+        .scrollContentBackground(.hidden)
+        .background(Color.darkWood)
+        .navigationBarBackButtonHidden(true)
         .toolbar{
             
             ToolbarItem(placement: .cancellationAction) {

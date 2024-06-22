@@ -20,19 +20,24 @@ struct addInventoryItemView: View {
     var body: some View {
         NavigationView{
             Form{
-                TextField("Ingredient name", text: $name)
-                
-                
-                Picker("Stock level", selection: $stock){
-                    ForEach(1..<FoodItem.stockLevel.count, id: \.self){ index in
-                        Text(FoodItem.stockLevel[index]).tag(FoodItem.stockLevel[index])
+                VStack{
+                    TextField("Ingredient name", text: $name)
+                    
+                    
+                    Picker("Stock level", selection: $stock){
+                        ForEach(1..<FoodItem.stockLevel.count, id: \.self){ index in
+                            Text(FoodItem.stockLevel[index]).tag(FoodItem.stockLevel[index])
+                        }
                     }
+                    
+                    Toggle("Mark to gather", isOn: $markState)
                 }
-                
-                Toggle("Mark to gather", isOn: $markState)
+                .listRowBackground(Color.lightWood)
                 
                 
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.darkWood)
             .toolbar{
                 
                 ToolbarItem(placement: .cancellationAction) {
@@ -41,7 +46,7 @@ struct addInventoryItemView: View {
                     }
                 }
                 
-                ToolbarItem{
+                ToolbarItem(placement: .confirmationAction){
                     Button("Add"){
                         let item = inventoryItem(name: name, stock: stock, markToGather: markState)
                         inventoryManger.addInventoryItem(item)

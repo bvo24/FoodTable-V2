@@ -9,7 +9,22 @@
 import SwiftUI
 
 struct proteinView: View {
+    
+    
+    
     @ObservedObject var dayManager: DayManager
+    
+    init(dayManager: DayManager) {
+            // Custom UISegmentedControl appearance
+            UISegmentedControl.appearance().selectedSegmentTintColor = .black
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+            UISegmentedControl.appearance().backgroundColor = .brown
+            
+            // Initialize the @ObservedObject
+            self.dayManager = dayManager
+        }
+    
 //    @State private var proteinIntake: Int = 0
 //    @State private var calorieIntake: Int = 0
     @Environment(\.dismiss) var dismiss
@@ -212,108 +227,116 @@ struct proteinView: View {
 //                .padding()
             
             Form{
-                Picker("Gender:", selection: $gender){
-                    ForEach(genders, id: \.self){ gender in
-                        Text(gender)
-                    }
-                }
-                .pickerStyle(.segmented)
-                HStack{
-                    Text("Age:")
-                    TextField("Enter your age", text: $ageInYears)
-                }
-                HStack{
-                    Text("Height:")
-                    if(heightUnit == "ft"){
-                        TextField("5 ft 6", text: $height)
-                    }
-                    else{
-                        TextField("", text: $height)
-                    }
-                    Picker("Select your height units", selection: $heightUnit){
-                        ForEach(heightUnits, id: \.self){ unit in
-                            Text(unit)
-                        }
-                        
-                    }
-                    .labelsHidden()
-                    .pickerStyle(.segmented)
-                }
-                HStack{
-                    Text("Weight:")
-                    TextField("Enter your weight", text: $weight)
-                    Picker("Select your height units", selection: $weightUnit){
-                        ForEach(weightUnits, id: \.self){ unit in
-                            Text(unit)
-                        }
-                        
-                    }
-                    .labelsHidden()
-                    .pickerStyle(.segmented)
-                }
                 
-                Picker("How often do you work out a week:", selection: $selectedActivityIndex) {
-                    ForEach(0..<9, id: \.self) { times in
-                        if(times < 8){
-                            Text("\(times) times")
+                List{
+                    Picker("Gender:", selection: $gender){
+                        ForEach(genders, id: \.self){ gender in
+                            Text(gender)
+                        }
+                    }
+                   
+                    .pickerStyle(.segmented)
+                    HStack{
+                        Text("Age:")
+                        TextField("Enter your age", text: $ageInYears)
+                    }
+                    HStack{
+                        Text("Height:")
+                        if(heightUnit == "ft"){
+                            TextField("5 ft 6", text: $height)
                         }
                         else{
-                            Text("Physical labor / Working out")
+                            TextField("", text: $height)
+                        }
+                        Picker("Select your height units", selection: $heightUnit){
+                            ForEach(heightUnits, id: \.self){ unit in
+                                Text(unit)
+                            }
+                            
+                        }
+                        .labelsHidden()
+                        .pickerStyle(.segmented)
+                    }
+                    HStack{
+                        Text("Weight:")
+                        TextField("Enter your weight", text: $weight)
+                        Picker("Select your height units", selection: $weightUnit){
+                            ForEach(weightUnits, id: \.self){ unit in
+                                Text(unit)
+                            }
+                            
                         }
                         
-                    }
-                }
-                .pickerStyle(.automatic)
-                
-                Picker("Protein Goal:", selection: $selectedProteinGoalIndex){
-                    ForEach(0..<proteinGoals.count, id: \.self){ index in
-                        Text(proteinGoals[index])
-                            .font(Font.custom("PixelifySans-Regular", size: 16))
-                    }
-                }
-                
-                Picker("Weight Goal:", selection: $selectedDietGoalsIndex){
-                    ForEach(0..<dietGoals.count, id: \.self){ index in
-                        Text(dietGoals[index])
-                    }
-                }
-                
-                
-                
-                //Text("Reccommended Calories: \(recCals, specifier: "%.1f")")
-                //                ( BMRMale * TDEE ) + Double(dietingCalories[selectedDietGoalsIndex])
-                Text("Reccommended Calories:\n\(recCals + -Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") + \(Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") = \(recCals, specifier: "%.1f")")
-                
-                Text("Reccommended Protein: \(recProtein, specifier: "%.1f") grams")
-                
-                Button("Save") {
-                    
-                    //                    print("Protein Intake: \(dayManager.selectedDay.proteinIntake)")
-                    //                    print("Calorie Intake: \(dayManager.selectedDay.calorieIntake)")
-                    saveChanges()
-                    dismiss()
-                }
-//                .padding()
-            
-            .toolbar{
-                ToolbarItem(placement: .cancellationAction){
-                    Button("Dismiss"){
-                        dismiss()
+                        .labelsHidden()
+                        .pickerStyle(.segmented)
                     }
                     
-                }
-                ToolbarItem(placement: .confirmationAction){
-                    Button("Update"){
+                    Picker("How often do you work out a week:", selection: $selectedActivityIndex) {
+                        ForEach(0..<9, id: \.self) { times in
+                            if(times < 8){
+                                Text("\(times) times")
+                            }
+                            else{
+                                Text("Physical labor / Working out")
+                            }
+                            
+                        }
+                    }
+                    .pickerStyle(.automatic)
+                    
+                    Picker("Protein Goal:", selection: $selectedProteinGoalIndex){
+                        ForEach(0..<proteinGoals.count, id: \.self){ index in
+                            Text(proteinGoals[index])
+                                .font(Font.custom("PixelifySans-Regular", size: 16))
+                        }
+                    }
+                    
+                    Picker("Weight Goal:", selection: $selectedDietGoalsIndex){
+                        ForEach(0..<dietGoals.count, id: \.self){ index in
+                            Text(dietGoals[index])
+                        }
+                    }
+                   
+                    
+                    
+                    
+                    //Text("Reccommended Calories: \(recCals, specifier: "%.1f")")
+                    //                ( BMRMale * TDEE ) + Double(dietingCalories[selectedDietGoalsIndex])
+                    Text("Reccommended Calories:\n\(recCals + -Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") + \(Double(dietingCalories[selectedDietGoalsIndex]), specifier: "%.1f") = \(recCals, specifier: "%.1f")")
+                    
+                    Text("Reccommended Protein: \(recProtein, specifier: "%.1f") grams")
+                    
+                    Button("Save") {
+                        
+                        //                    print("Protein Intake: \(dayManager.selectedDay.proteinIntake)")
+                        //                    print("Calorie Intake: \(dayManager.selectedDay.calorieIntake)")
                         saveChanges()
                         dismiss()
                     }
+                    //                .padding()
+                    
+                    .toolbar{
+                        ToolbarItem(placement: .cancellationAction){
+                            Button("Dismiss"){
+                                dismiss()
+                            }
+                            
+                        }
+                        ToolbarItem(placement: .confirmationAction){
+                            Button("Update"){
+                                saveChanges()
+                                dismiss()
+                            }
+                        }
+                        
+                    }
                 }
+                .foregroundStyle(Color.black)
+                .listRowBackground(Color.lightWood)
+                
                 
             }
-            }
-            
-            
-            
+            .background(Color.darkWood)
         }
         
         

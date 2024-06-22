@@ -51,7 +51,7 @@ struct BuffLogView: View {
                         showAddView.toggle()
                     }) {
                         Label("Add Breakfast Item", systemImage: "plus")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(Color.black)
                         
                     }
                     .listRowBackground(Color.lightWood)
@@ -86,7 +86,7 @@ struct BuffLogView: View {
                     }) {
                         Label("Add Lunch Item", systemImage: "plus")
                     }
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.black)
                     .listRowBackground(Color.lightWood)
                 }
 
@@ -118,7 +118,7 @@ struct BuffLogView: View {
                     }) {
                         Label("Add Dinner Item", systemImage: "plus")
                     }
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .listRowBackground(Color.lightWood)
                 }
                 
