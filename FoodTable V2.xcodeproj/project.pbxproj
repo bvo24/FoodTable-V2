@@ -53,7 +53,7 @@
 		9B5705FC2C224C330056EBE8 /* sortOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortOptionView.swift; sourceTree = "<group>"; };
 		9B5706022C231BC80056EBE8 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		9B5706042C2326060056EBE8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
-		9B68B01D2C06B64B00C84892 /* FootTable V2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FootTable V2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B68B01D2C06B64B00C84892 /* FoodTable V2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FoodTable V2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootTable_V2App.swift; sourceTree = "<group>"; };
 		9B68B0222C06B64B00C84892 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9B68B0242C06B64C00C84892 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 		9B68B01E2C06B64B00C84892 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B68B01D2C06B64B00C84892 /* FootTable V2.app */,
+				9B68B01D2C06B64B00C84892 /* FoodTable V2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,9 +151,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9B68B01C2C06B64B00C84892 /* FootTable V2 */ = {
+		9B68B01C2C06B64B00C84892 /* FoodTable V2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B68B02B2C06B64C00C84892 /* Build configuration list for PBXNativeTarget "FootTable V2" */;
+			buildConfigurationList = 9B68B02B2C06B64C00C84892 /* Build configuration list for PBXNativeTarget "FoodTable V2" */;
 			buildPhases = (
 				9B68B0192C06B64B00C84892 /* Sources */,
 				9B68B01A2C06B64B00C84892 /* Frameworks */,
@@ -163,9 +163,9 @@
 			);
 			dependencies = (
 			);
-			name = "FootTable V2";
+			name = "FoodTable V2";
 			productName = "FootTable V2";
-			productReference = 9B68B01D2C06B64B00C84892 /* FootTable V2.app */;
+			productReference = 9B68B01D2C06B64B00C84892 /* FoodTable V2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -183,7 +183,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9B68B0182C06B64B00C84892 /* Build configuration list for PBXProject "FootTable V2" */;
+			buildConfigurationList = 9B68B0182C06B64B00C84892 /* Build configuration list for PBXProject "FoodTable V2" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -196,7 +196,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B68B01C2C06B64B00C84892 /* FootTable V2 */,
+				9B68B01C2C06B64B00C84892 /* FoodTable V2 */,
 			);
 		};
 /* End PBXProject section */
@@ -427,7 +427,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B68B0182C06B64B00C84892 /* Build configuration list for PBXProject "FootTable V2" */ = {
+		9B68B0182C06B64B00C84892 /* Build configuration list for PBXProject "FoodTable V2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B68B0292C06B64C00C84892 /* Debug */,
@@ -436,7 +436,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B68B02B2C06B64C00C84892 /* Build configuration list for PBXNativeTarget "FootTable V2" */ = {
+		9B68B02B2C06B64C00C84892 /* Build configuration list for PBXNativeTarget "FoodTable V2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B68B02C2C06B64C00C84892 /* Debug */,
