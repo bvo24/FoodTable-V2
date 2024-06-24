@@ -11,7 +11,7 @@ Provide a detailed description of your project. Explain the problem it solves, i
 Here's a GIF showing the project in action:
 
 <div align="center">
-  <iframe src="https://giphy.com/embed/bv3aZntCKopDTSOEfR" width="222" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/bv3aZntCKopDTSOEfR">via GIPHY</a></p>
+  <iframe src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWx5dmJjaDZ1MTljZGxqOG85bHlqOWdsMnRhd2R5bzduN2gzbzdteiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bv3aZntCKopDTSOEfR/giphy.gif" width="600" height="400" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ## Installation
