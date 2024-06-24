@@ -11,7 +11,7 @@ My app currently does two things, keep track of your calories, keep track of you
 
 ## Demo
 
-Here's a GIF showing add a breakfast item, there are plenty of more features but GIFs can't be too long. If you watch The Bear you would know what this breakfast item is.
+Here's a GIF showing add a Sydneys Omelette to breakfast, there are plenty of more features but GIFs can't be too long. If you watch The Bear you would know what this omelette is.
 
 ![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWx5dmJjaDZ1MTljZGxqOG85bHlqOWdsMnRhd2R5bzduN2gzbzdteiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bv3aZntCKopDTSOEfR/giphy.gif)
 
