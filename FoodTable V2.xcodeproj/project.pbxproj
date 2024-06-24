@@ -49,7 +49,7 @@
 		9B5705F52C1BC3F90056EBE8 /* inventoryItemEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = inventoryItemEditView.swift; sourceTree = "<group>"; };
 		9B5705F72C1E0D2E0056EBE8 /* addInventoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addInventoryItemView.swift; sourceTree = "<group>"; };
 		9B5705F92C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PixelifySans-VariableFont_wght.ttf"; sourceTree = "<group>"; };
-		9B5705FB2C2235DF0056EBE8 /* FootTable-V2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "FootTable-V2-Info.plist"; sourceTree = SOURCE_ROOT; };
+		9B5705FB2C2235DF0056EBE8 /* FoodTable-V2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodTable-V2-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9B5705FC2C224C330056EBE8 /* sortOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sortOptionView.swift; sourceTree = "<group>"; };
 		9B5706022C231BC80056EBE8 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		9B5706042C2326060056EBE8 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		9B68B01F2C06B64B00C84892 /* FoodTable V2 */ = {
 			isa = PBXGroup;
 			children = (
-				9B5705FB2C2235DF0056EBE8 /* FootTable-V2-Info.plist */,
+				9B5705FB2C2235DF0056EBE8 /* FoodTable-V2-Info.plist */,
 				9B5705F92C2235B90056EBE8 /* PixelifySans-VariableFont_wght.ttf */,
 				9B68B0202C06B64B00C84892 /* FootTable_V2App.swift */,
 				9B5706022C231BC80056EBE8 /* TestView.swift */,
