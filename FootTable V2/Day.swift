@@ -51,7 +51,7 @@ class Day: Identifiable, ObservableObject, Codable, Equatable {
     enum CodingKeys: CodingKey {
         case id, date, breakfast, lunch, dinner, proteinIntake, totalProtein, totalCalories, calorieIntake
     }
-    
+    //Some of the data isn't encodable
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)

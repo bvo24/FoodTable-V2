@@ -18,6 +18,7 @@ class DayManager: ObservableObject {
 
     private let savePath = URL.documentsDirectory.appendingPathComponent("SavedDays")
 
+    
     init() {
         self.days = []
         self.selectedDay = Day(date: Date(), breakfast: [], lunch: [], dinner: [])
@@ -43,7 +44,8 @@ class DayManager: ObservableObject {
             print("Unable to save data")
         }
     }
-
+    
+    //To save space any days beyond 7 days is removed
     private func removeOldDays() {
         let sevenDaysAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
         days.removeAll { day in
@@ -55,7 +57,7 @@ class DayManager: ObservableObject {
         }
         saveDays()
     }
-
+    //In case today wasn't made already then we create a new day
     private func updateSelectedDayIfNeeded() {
         let today = Date()
         if let existingDay = days.first(where: { Calendar.current.isDate($0.date, inSameDayAs: today) }) {

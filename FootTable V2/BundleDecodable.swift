@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension Bundle{
     func decode<T: Decodable>(_ file : String) -> T{
         guard let url = self.url(forResource:  file, withExtension: nil) else{
@@ -22,8 +21,6 @@ extension Bundle{
         
         do{
             return try decoder.decode(T.self, from: data)
-            
-            
         }catch DecodingError.keyNotFound(let key, let context) {
             fatalError("Failed to decode this \(file) from bundle due to missing key '\(key)' - \(context.debugDescription)")
              

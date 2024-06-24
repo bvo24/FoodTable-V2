@@ -8,10 +8,10 @@
 import SwiftUI
 
 class InventoryManager: ObservableObject {
+    //Saved in a document directory
     private let savePath = URL.documentsDirectory.appendingPathComponent("inventory")
     
     @Published var inventory: [inventoryItem] = []
-    
     
     init() {
         loadInventory()
@@ -22,8 +22,8 @@ class InventoryManager: ObservableObject {
         saveInventory()
     }
     
+    //Find the id where the item we have is equal to the id in the array and then just swap in the new item for the old one
     func updateInventoryItem(item : inventoryItem){
-        
         if let index = inventory.firstIndex(where: { $0.id == item.id}) {
             inventory[index] = item
             saveInventory()
@@ -32,7 +32,6 @@ class InventoryManager: ObservableObject {
     
     
     func removeInventoryItem(at index: IndexSet) {
-        
         inventory.remove(atOffsets: index)
         saveInventory()
     }

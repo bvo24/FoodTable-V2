@@ -4,7 +4,7 @@
 //
 //  Created by Brian Vo on 6/19/24.
 //
-
+//Changes the color of tha nav bar
 import Foundation
 import SwiftUI
 

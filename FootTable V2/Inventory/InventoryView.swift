@@ -17,7 +17,6 @@ enum FilterType{
 struct InventoryView: View {
     @StateObject var inventoryManager = InventoryManager()
     @State private var refreshID = UUID()
-    
     @State private var sortType = SortType.default
     @State private var filterType = FilterType.default
     @State private var showingSortOptions = false
@@ -59,6 +58,7 @@ struct InventoryView: View {
     
         }
         
+    //Can't sort by strings so assigning a number allowed us to sort from high to low etc.
         func getStatusOrder(stock: String) -> Int {
             switch stock {
             case "High":
@@ -95,18 +95,21 @@ struct InventoryView: View {
                         
                         .contentShape(Rectangle())
                     }
+                    //When we delete we should refresh the page
                     .onDelete { indexSet in
                         inventoryManager.removeInventoryItem(at: indexSet)
-                        refreshID = UUID()  // Update refreshID to refresh the view
+                        refreshID = UUID()
                     }
                     .listRowBackground(Color.lightWood)
                     
                 }
                 .scrollContentBackground(.hidden)
                 .background(Color.darkWood)
-                .id(refreshID)  // Force view refresh by using the refreshID
+                .id(refreshID)
                 
                 .toolbar {
+                    
+                    //Allow for deletion of items faster
                     ToolbarItem(placement: .cancellationAction) {
                         EditButton()
                     }
@@ -187,18 +190,20 @@ struct InventoryView: View {
                 
             }
             .onAppear {
-                // Perform any actions you want to happen when the view appears
+                //Keep our inventory up to date, like when we add something from our other tab we should update when we tap this ab
                 inventoryManager.loadInventory()
-                refreshID = UUID()  // Update refreshID to refresh the view
+                refreshID = UUID()
             }
         
     }
 
     func removeItem(at offsets: IndexSet) {
         inventoryManager.removeInventoryItem(at: offsets)
-        refreshID = UUID()  // Update refreshID to refresh the view
+        refreshID = UUID()
     }
 
+    
+    //Test function can remove
     func printInventory() {
         for item in inventoryManager.inventory {
             print("\(item.name), \(item.stock)")

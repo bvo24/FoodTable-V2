@@ -147,7 +147,7 @@ struct BuffLogView: View {
                                       .foregroundColor(Color.black)
                                 }
                             }
-                
+                //Test this later
                 //Test button
 //                ToolbarItem {
 //                    Button("List") {
