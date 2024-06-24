@@ -105,7 +105,7 @@
 		9B68B0142C06B64B00C84892 = {
 			isa = PBXGroup;
 			children = (
-				9B68B01F2C06B64B00C84892 /* FootTable V2 */,
+				9B68B01F2C06B64B00C84892 /* FoodTable V2 */,
 				9B68B01E2C06B64B00C84892 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9B68B01F2C06B64B00C84892 /* FootTable V2 */ = {
+		9B68B01F2C06B64B00C84892 /* FoodTable V2 */ = {
 			isa = PBXGroup;
 			children = (
 				9B5705FB2C2235DF0056EBE8 /* FootTable-V2-Info.plist */,
@@ -137,7 +137,7 @@
 				9B68B0262C06B64C00C84892 /* Preview Content */,
 				9B5705DD2C0911050056EBE8 /* ContentView-ViewModel.swift */,
 			);
-			path = "FootTable V2";
+			path = "FoodTable V2";
 			sourceTree = "<group>";
 		};
 		9B68B0262C06B64C00C84892 /* Preview Content */ = {
