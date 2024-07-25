@@ -17,5 +17,5 @@ Here's a GIF showing add a Sydneys Omelette to breakfast, there are plenty of mo
 
 ## Installation
 
-Currently I have no plans on releasing this app, there's not enough features on this app.
+Currently I have no plans on releasing this app.
 
