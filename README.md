@@ -6,12 +6,11 @@ I created this app after completing 100 days of SwiftUI, drawing inspiration fro
 ## Description
 
 
-My app serves two main purposes: tracking your calories and managing your pantry inventory. It’s designed to be simple yet effective, allowing you to add, edit, or search for items. In the food journal, you can log what you eat for breakfast, lunch, and dinner. The inventory feature helps you keep track of what you need to restock or avoid buying the next time you go grocery shopping.
+My app serves three main purposes: tracking your calories, calculating protein intake, and managing your pantry inventory. It’s designed to be simple yet effective, allowing you to add, edit, or search for items. In the food journal, you can log what you eat for breakfast, lunch, and dinner. The inventory feature helps you keep track of what you need to restock or avoid buying the next time you go grocery shopping.
 
 While the app includes some built-in food items, please note that not all of them have calorie information available.
 
 Though the app is straightforward, there are areas for improvement. Currently, all data is stored locally on your phone, which could potentially use up a lot of space. However, the app automatically removes entries older than 7 days to manage storage efficiently. For future updates, implementing a database could reduce the app’s size and enhance its functionality.
-
 
 ## Demo
 
