@@ -1,12 +1,16 @@
 # Food Table
 
 
-I made this app after following 100 days of SwiftUI and this app is inspired by MyFitnessPal. Basically if you wanted to start dieting this is your solution. Calculating things like your daily calorie consumption, protein intake and not only that but this can serve as a grocery store list (inventory tab). I aimed it for people who wanted to diet but sort of make it gamer esk, I tried to attempt to go for a crafting table theme and pixelated text.
+I created this app after completing 100 days of SwiftUI, drawing inspiration from MyFitnessPal. If you’re looking to start a diet, this app could be your solution. It helps you track daily calorie consumption and protein intake, and it also functions as a grocery inventory list. I designed it with a fun, gamer-inspired theme, incorporating a crafting table look and pixelated text.
 
 ## Description
 
 
-My app currently does two things, keep track of your calories, keep track of your inventory(pantry). And I wanted to make sure if it was a simple app it was good at it. Allowing you to add / edit items or even search things you may not know of. I think making something easy is the best way to start something. In your food journal you may keep track of what you eat for breakfast lunch and dinner, and for the inventory you may see what you need to restock up on or may not want to restock up on the next time you are out grabbing groceries. There are a couple things that could be improved on this app but I decided to keep it simple due to it being my first app. One, all of this is stored on the phone, so it may take up infinite space?! No everytime you add a day if will remove days that are beyond 7 days old so no worries about space. That also means like the list of items you store is local. These problems can easily be solved a database and allow the app to become smaller in size actually.
+My app serves two main purposes: tracking your calories and managing your pantry inventory. It’s designed to be simple yet effective, allowing you to add, edit, or search for items. In the food journal, you can log what you eat for breakfast, lunch, and dinner. The inventory feature helps you keep track of what you need to restock or avoid buying the next time you go grocery shopping.
+
+While the app includes some built-in food items, please note that not all of them have calorie information available.
+
+Though the app is straightforward, there are areas for improvement. Currently, all data is stored locally on your phone, which could potentially use up a lot of space. However, the app automatically removes entries older than 7 days to manage storage efficiently. For future updates, implementing a database could reduce the app’s size and enhance its functionality.
 
 
 ## Demo
